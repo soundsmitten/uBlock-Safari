@@ -1,10 +1,12 @@
 'use strict';
 
+var browser = 'safari';
+
 var del = require('del');
 var gulp = require('gulp');
 var path = require('path');
 var merge = require('merge-stream');
-var config = require('./gulpfile.config')('safari');
+var config = require('./gulpfile.config')(browser);
 var tasks = config.tasks;
 var $ = require('gulp-load-plugins')();
 
@@ -32,14 +34,12 @@ gulp.task('assets', function() {
 gulp.task('css', function() {
     return merge(tasks.css.map(function(css) {
         return gulp.src(css.src)
+            .pipe($.replace('__MSG_@@bidi_start_edge__', 'left'))
             .pipe($.autoprefixer({
-                browsers: ['last 2 versions', '> 1%'],
+                browsers: ['last 10 ' + browser + ' versions'],
                 cascade: false,
-                remove: false
+                add: false
             }))
-            .on('error', function(e) {
-                console.log(e)
-            })
             .pipe($.cleanCss())
             .pipe(gulp.dest(css.dest));
     }));
@@ -75,11 +75,11 @@ gulp.task('lib', function() {
     return merge(tasks.lib.map(function(lib) {
         return gulp.src(lib.src)
             .pipe($.uglify())
-            .pipe(lib.src);
+            .pipe(gulp.dest(lib.dest));
     }));
 });
 
-gulp.task('static', function() {
+gulp.task('static-files', function() {
     return merge(tasks.static.map(function(file) {
         var ret = merge(gulp.src(file.src));
         if (file.rename) {
@@ -93,11 +93,13 @@ gulp.task('static', function() {
     }));
 });
 
+gulp.task('static', ['static-files'], $.shell.task('python tools/make-' + browser + '-meta.py ' + config.DEST));
+
 gulp.task('clean', function() {
     return del(config.DEST);
 });
 
-gulp.task('build', ['static', 'assets', 'css', 'html', 'js']);
+gulp.task('build', Object.keys(tasks));
 
 // gulp.task('default', gulp.series('clean', 'build', 'watch'))
 gulp.task('default', ['clean'], function() {

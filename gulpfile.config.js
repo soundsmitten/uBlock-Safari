@@ -59,6 +59,7 @@ module.exports = function(browser) {
                     path.join(PLATFORM, '**/*'),
                     '!src/**/*.{js,css,html}',
                     '!src/lib',
+                    '!' + path.join(PLATFORM, 'Update.plist'),
                     '!' + path.join(PLATFORM, '**/*.{js,css,html}')
                 ],
                 rename: {
