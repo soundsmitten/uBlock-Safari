@@ -5,7 +5,7 @@
   },
   "extShortDesc": {
     "message": "Cuối cùng, đã có một công cụ chặn quảng cáo hiệu quả, tiêu tốn ít CPU và bộ nhớ.",
-    "description": "this will be in the chrome web store: must be 132 characters or less"
+    "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "dashboardName": {
     "message": "uBlock₀ — Bảng điều khiển",
@@ -16,7 +16,7 @@
     "description": "appears as tab name in dashboard"
   },
   "3pPageName": {
-    "message": "Bộ lọc",
+    "message": "Danh sách bộ lọc",
     "description": "appears as tab name in dashboard"
   },
   "1pPageName": {
@@ -31,6 +31,10 @@
     "message": "Danh sách trắng",
     "description": "appears as tab name in dashboard"
   },
+  "shortcutsPageName": {
+    "message": "Phím tắt",
+    "description": "appears as tab name in dashboard"
+  },
   "statsPageName": {
     "message": "uBlock₀ — Nhật ký các yêu cầu",
     "description": "Title for the logger window"
@@ -38,6 +42,10 @@
   "aboutPageName": {
     "message": "Giới thiệu",
     "description": "appears as tab name in dashboard"
+  },
+  "assetViewerPageName": {
+    "message": "uBlock₀ - Trình xem nội dung",
+    "description": "Title for the asset viewer page"
   },
   "advancedSettingsPageName": {
     "message": "Cài đặt nâng cao",
@@ -108,11 +116,11 @@
     "description": "Tooltip for the no-large-media per-site switch"
   },
   "popupTipNoLargeMedia1": {
-    "message": "Nhấp để chặn các yếu tố truyền thông lớn trên trang này",
+    "message": "Nhấp để chặn các thành phần đa phương tiện lớn trên trang này",
     "description": "Tooltip for the no-large-media per-site switch"
   },
   "popupTipNoLargeMedia2": {
-    "message": "Nhấp để hủy các yếu tố truyền thông lớn trên trang này",
+    "message": "Nhấp để ngừng chặn các thành phần đa phương tiện kích thước lớn trên trang này",
     "description": "Tooltip for the no-large-media per-site switch"
   },
   "popupTipNoCosmeticFiltering": {
@@ -120,11 +128,11 @@
     "description": "Tooltip for the no-cosmetic-filtering per-site switch"
   },
   "popupTipNoCosmeticFiltering1": {
-    "message": "Nhấn để tắt bộ lọc phần tử trên trang này",
+    "message": "Nhấn để tắt bộ lọc phần tử ẩn trên trang này",
     "description": "Tooltip for the no-cosmetic-filtering per-site switch"
   },
   "popupTipNoCosmeticFiltering2": {
-    "message": "Nhấn để bật bộ lọc phần tử trên trang này",
+    "message": "Nhấn để bật bộ lọc phần tử ẩn trên trang này",
     "description": "Tooltip for the no-cosmetic-filtering per-site switch"
   },
   "popupTipNoRemoteFonts": {
@@ -138,6 +146,14 @@
   "popupTipNoRemoteFonts2": {
     "message": "Nhấp để hủy chặn font từ xa trên trang này",
     "description": "Tooltip for the no-remote-fonts per-site switch"
+  },
+  "popupTipNoScripting1": {
+    "message": "Nhấp để vô hiệu hóa JavaScript trên trang này",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
+  "popupTipNoScripting2": {
+    "message": "Nhấp để ngừng vô hiệu hóa JavaScript trên trang này",
+    "description": "Tooltip for the no-scripting per-site switch"
   },
   "popupTipGlobalRules": {
     "message": "Quy tắc chung: cột này dành cho quy tắc áp dụng cho mọi trang.",
@@ -168,7 +184,7 @@
     "description": ""
   },
   "popup3pPassiveRulePrompt": {
-    "message": "css\/hình ảnh bên thứ ba",
+    "message": "CSS\/hình ảnh từ bên thứ ba",
     "description": ""
   },
   "popupInlineScriptRulePrompt": {
@@ -284,12 +300,16 @@
     "description": ""
   },
   "settingsNoLargeMediaPrompt": {
-    "message": "Chặn yếu tố đa phương tiện lớn hơn {{input:number}} kB",
+    "message": "Chặn yếu tố đa phương tiện lớn hơn {{input}} KB",
     "description": ""
   },
   "settingsNoRemoteFontsPrompt": {
     "message": "Chặn font từ xa",
     "description": ""
+  },
+  "settingsNoScriptingPrompt": {
+    "message": "Vô hiệu hóa JavaScript",
+    "description": "The default state for the per-site no-scripting switch"
   },
   "settingsNoCSPReportsPrompt": {
     "message": "Chặn các báo cáo CSP",
@@ -352,7 +372,7 @@
     "description": "English: Apply changes"
   },
   "3pGroupDefault": {
-    "message": "Trên máy",
+    "message": "Dựng sẵn",
     "description": "Header for the uBlock filters section in 'Filter lists pane'"
   },
   "3pGroupAds": {
@@ -368,7 +388,7 @@
     "description": "English: Malware domains"
   },
   "3pGroupAnnoyances": {
-    "message": "Những bất tiện",
+    "message": "Khó chịu",
     "description": "The header identifying the filter lists in the category 'annoyances'"
   },
   "3pGroupMultipurpose": {
@@ -388,15 +408,15 @@
     "description": "The label for the checkbox used to import external filter lists"
   },
   "3pExternalListsHint": {
-    "message": "Một URL cho mỗi dòng. Dòng bắt đầu với &lsquo;!&rsquo;sẽ bị bỏ qua. Các URL không hợp lệ sẽ được bỏ qua âm thầm.",
+    "message": "Một URL cho mỗi dòng. Các URL không hợp lệ sẽ được bỏ qua âm thầm.",
     "description": "Short information about how to use the textarea to import external filter lists by URL"
   },
   "3pExternalListObsolete": {
-    "message": "đã cũ",
+    "message": "Đã cũ.",
     "description": "used as a tooltip for the out-of-date icon beside a list"
   },
   "3pLastUpdate": {
-    "message": "Cập nhật mới: {{ago}}.\nClick để cập nhập.",
+    "message": "Cập nhật lần cuối: {{ago}}.\nNhấn để cập nhật ngay.",
     "description": "used as a tooltip for the clock icon beside a list"
   },
   "3pUpdating": {
@@ -408,7 +428,7 @@
     "description": "used as a tooltip for error icon beside a list"
   },
   "1pFormatHint": {
-    "message": "Một bộ lọc trên mỗi dòng. Một bộ lọc có thể là một tên máy chủ đơn giản, hoặc một bộ lọc Adblock Plus tương thích. Những dòng bắt đầu với &lsquo;!&rsquo; sẽ bị bỏ qua.",
+    "message": "Một bộ lọc trên mỗi dòng. Một bộ lọc có thể là một tên máy chủ đơn thuần, hoặc một bộ lọc tương thích với Adblock Plus. Những dòng bắt đầu với <code>!<\/code> sẽ bị bỏ qua.",
     "description": "Short information about how to create custom filters"
   },
   "1pImport": {
@@ -476,7 +496,7 @@
     "description": "English: dynamic rule syntax and full documentation."
   },
   "whitelistPrompt": {
-    "message": "Danh sách tên các máy chủ mà uBlock₀ sẽ bị chặn. Một mục nhập trên mỗi dòng. Tên máy chủ không hợp lệ sẽ được tự động bỏ qua.",
+    "message": "Danh sách tên các máy chủ mà uBlock Origin sẽ bị chặn. Một mục nhập trên mỗi dòng. Tên máy chủ không hợp lệ sẽ được tự động bỏ qua.",
     "description": "English: An overview of the content of the dashboard's Whitelist pane."
   },
   "whitelistImport": {
@@ -516,20 +536,116 @@
     "description": "Appears in the logger's tab selector"
   },
   "logBehindTheScene": {
-    "message": "Behind the scene",
+    "message": "Tabless",
     "description": "Pretty name for behind-the-scene network requests"
   },
   "loggerCurrentTab": {
     "message": "Tab hiện tại",
     "description": "Appears in the logger's tab selector"
   },
+  "loggerReloadTip": {
+    "message": "Tải lại nội dung thẻ",
+    "description": "Tooltip for the reload button in the logger page"
+  },
+  "loggerDomInspectorTip": {
+    "message": "Chuyển đổi trình kiểm tra DOM",
+    "description": "Tooltip for the DOM inspector button in the logger page"
+  },
+  "loggerPopupPanelTip": {
+    "message": "Đóng\/mở hộp thoại popup",
+    "description": "Tooltip for the popup panel button in the logger page"
+  },
+  "loggerInfoTip": {
+    "message": "uBlock Origin wiki: Tác vụ log",
+    "description": "Tooltip for the top-right info label in the logger page"
+  },
+  "loggerClearTip": {
+    "message": "Làm sạch tác vụ log",
+    "description": "Tooltip for the eraser in the logger page; used to blank the content of the logger"
+  },
+  "loggerPauseTip": {
+    "message": "Ngưng tác vụ log (loại bỏ tất cả dữ liệu đang nhập vào)",
+    "description": "Tooltip for the pause button in the logger page"
+  },
+  "loggerUnpauseTip": {
+    "message": "Tiếp tục tác vụ log",
+    "description": "Tooltip for the play button in the logger page"
+  },
+  "loggerRowFiltererButtonTip": {
+    "message": "Đóng\/mở lọc tác vụ log",
+    "description": "Tooltip for the row filterer button in the logger page"
+  },
   "logFilterPrompt": {
     "message": "lọc mục ghi nhận",
-    "description": "English: filter log entries"
+    "description": "Placeholder string for logger output filtering input field"
   },
-  "logMaxEntriesTip": {
-    "message": "Số mục ghi nhận tối đa",
-    "description": "Tooltip informaing that the input field is to set the maximum number of entries in the log"
+  "loggerRowFiltererBuiltinTip": {
+    "message": "Lựa chọn lọc tác vụ log",
+    "description": "Tooltip for the button to bring up logger output filtering options"
+  },
+  "loggerRowFiltererBuiltinNot": {
+    "message": "Không phải",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinEventful": {
+    "message": "eventful",
+    "description": "A keyword in the built-in row filtering expression: all items corresponding to uBO doing something (blocked, allowed, redirected, etc.)"
+  },
+  "loggerRowFiltererBuiltinBlocked": {
+    "message": "bị chặn",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinAllowed": {
+    "message": "được phép",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin1p": {
+    "message": "Bên thứ nhất",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin3p": {
+    "message": "Bên thứ ba",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerEntryDetailsHeader": {
+    "message": "Chi tiết",
+    "description": "Small header to identify the 'Details' pane for a specific logger entry"
+  },
+  "loggerEntryDetailsFilter": {
+    "message": "Bộ lọc",
+    "description": "Label to identify a filter field"
+  },
+  "loggerEntryDetailsFilterList": {
+    "message": "Danh sách bộ lọc",
+    "description": "Label to identify a filter list field"
+  },
+  "loggerEntryDetailsRule": {
+    "message": "Quy tắc",
+    "description": "Label to identify a rule field"
+  },
+  "loggerEntryDetailsContext": {
+    "message": "Ngữ cảnh",
+    "description": "Label to identify a context field (typically a hostname)"
+  },
+  "loggerEntryDetailsRootContext": {
+    "message": "Ngữ cảnh gốc",
+    "description": "Label to identify a root context field (typically a hostname)"
+  },
+  "loggerEntryDetailsPartyness": {
+    "message": "Nguồn khác bên thứ nhất",
+    "description": "Label to identify a field providing partyness information"
+  },
+  "loggerEntryDetailsType": {
+    "message": "Kiểu",
+    "description": "Label to identify the type of an entry"
+  },
+  "loggerEntryDetailsURL": {
+    "message": "URL",
+    "description": "Label to identify the URL of an entry"
+  },
+  "loggerURLFilteringHeader": {
+    "message": "Quy tắc URL",
+    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerURLFilteringContextLabel": {
     "message": "Ngữ cảnh:",
@@ -538,10 +654,6 @@
   "loggerURLFilteringTypeLabel": {
     "message": "Loại:",
     "description": "Label for the type selector"
-  },
-  "loggerURLFilteringHeader": {
-    "message": "Lọc URL chủ động",
-    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerStaticFilteringHeader": {
     "message": "Bộ lọc tĩnh",
@@ -584,20 +696,84 @@
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringFinderSentence1": {
-    "message": "Bộ lọc tĩnh {{filter}} phát hiện trong:",
-    "description": "Below this sentence, the filter lists in which the filter was found"
+    "message": "Bộ lọc tĩnh <code>{{filter}}<\/code> phát hiện trong:",
+    "description": "Below this sentence, the filter list(s) in which the filter was found"
+  },
+  "loggerStaticFilteringFinderSentence2": {
+    "message": "Bộ lọc tĩnh <code>{{filter}}<\/code> không thể tìm thấy trong bất kỳ danh sách bộ lọc hiện được bật nào",
+    "description": "Message to show when a filter cannot be found in any filter lists"
+  },
+  "loggerSettingDiscardPrompt": {
+    "message": "Các mục log không đáp ứng cả ba điều kiện dưới đây sẽ tự động bị loại bỏ:",
+    "description": "Logger setting: A sentence to describe the purpose of the settings below"
+  },
+  "loggerSettingPerEntryMaxAge": {
+    "message": "Bảo tồn các mục từ {{input}} phút trước",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxLoads": {
+    "message": "Bảo tồn nhiều nhất {{input}} trang được tải trên mỗi thẻ",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxEntries": {
+    "message": "Bảo tồn nhiều nhất {{input}} mục trên mỗi tab",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerEntryLineCount": {
+    "message": "Sử dụng {{input}} dòng trên mỗi entry trong chế độ mở rộng theo chiều dọc",
+    "description": "A logger setting"
+  },
+  "loggerSettingHideColumnsPrompt": {
+    "message": "Ẩn cột:",
+    "description": "Logger settings: a sentence to describe the purpose of the checkboxes below"
+  },
+  "loggerSettingHideColumnTime": {
+    "message": "{{input}} Thời gian",
+    "description": "A label for the time column"
+  },
+  "loggerSettingHideColumnFilter": {
+    "message": "{{input}} Bộ lọc\/quy tắc",
+    "description": "A label for the filter or rule column"
+  },
+  "loggerSettingHideColumnContext": {
+    "message": "{{input}} Ngữ cảnh",
+    "description": "A label for the context column"
+  },
+  "loggerSettingHideColumnPartyness": {
+    "message": "{{input}} Partyness",
+    "description": "A label for the partyness column"
+  },
+  "loggerExportFormatList": {
+    "message": "Danh sách",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportFormatTable": {
+    "message": "Bảng",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportEncodePlain": {
+    "message": "Không có định dạng",
+    "description": "Label for radio-button to pick export text format"
+  },
+  "loggerExportEncodeMarkdown": {
+    "message": "Markdown",
+    "description": "Label for radio-button to pick export text format"
   },
   "aboutChangelog": {
     "message": "Thay đổi",
-    "description": "English: Change log"
+    "description": ""
   },
   "aboutWiki": {
     "message": "Wiki",
-    "description": "English: project' wiki on Github"
+    "description": "English: project' wiki on GitHub"
   },
   "aboutSupport": {
     "message": "Hỗ trợ",
     "description": "A link for where to get support"
+  },
+  "aboutIssues": {
+    "message": "Theo dõi vấn đề",
+    "description": "Text for a link to official issue tracker"
   },
   "aboutCode": {
     "message": "Mã nguồn (GPLv3)",
@@ -606,6 +782,10 @@
   "aboutContributors": {
     "message": "Những người đóng góp",
     "description": "English: Contributors"
+  },
+  "aboutDependencies": {
+    "message": "Các phụ thuộc bên ngoài (tương thích GPLv3):",
+    "description": "Shown in the About pane"
   },
   "aboutBackupDataButton": {
     "message": "Sao lưu vào tập tin...",
@@ -744,7 +924,7 @@
     "description": "for generic 'Submit' buttons"
   },
   "genericApplyChanges": {
-    "message": "Lưu thay đổi",
+    "message": "Áp dụng các thay đổi",
     "description": "for generic 'Apply changes' buttons"
   },
   "genericRevert": {
@@ -758,6 +938,18 @@
   "contextMenuTemporarilyAllowLargeMediaElements": {
     "message": "Tạm thời cho phép yếu tố đa phương tiện lớn",
     "description": "A context menu entry, present when large media elements have been blocked on the current site"
+  },
+  "shortcutCapturePlaceholder": {
+    "message": "Nhập phím tắt",
+    "description": "Placeholder string for input field used to capture a keyboard shortcut"
+  },
+  "genericMergeViewScrollLock": {
+    "message": "Đóng\/mở khóa cuộn",
+    "description": "Tooltip for the button used to lock scrolling between the views in the 'My rules' pane"
+  },
+  "genericCopyToClipboard": {
+    "message": "Sao chép vào bảng tạm",
+    "description": "Label for buttons used to copy something to the clipboard"
   },
   "dummy": {
     "message": "Đây là mục cuối",

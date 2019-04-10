@@ -54,8 +54,8 @@
     var searchWidgetHtml =
         '<div class="cm-search-widget">' +
             '<span class="fa">&#xf002;</span>&ensp;' +
-            '<span>' +
-                '<input type="text" size="20">' +
+            '<span class="cm-search-widget-input">' +
+                '<input type="text">' +
                 '<span class="cm-search-widget-count">' +
                     '<span><!-- future use --></span><span>0</span>' +
                 '</span>' +
@@ -79,31 +79,27 @@
         );
     }
 
-    function searchWidgetTimerHandler(cm) {
-        var state = getSearchState(cm);
-        state.queryTimer = null;
-        findCommit(cm);
-    }
-
     function searchWidgetInputHandler(cm) {
-        var state = getSearchState(cm);
-        if ( queryTextFromSearchWidget(cm) !== state.queryText ) {
-            if ( state.queryTimer !== null ) {
-                clearTimeout(state.queryTimer);
-            }
-            state.queryTimer = setTimeout(
-                searchWidgetTimerHandler.bind(null, cm),
-                350
-            );
+        let state = getSearchState(cm);
+        if ( queryTextFromSearchWidget(cm) === state.queryText ) { return; }
+        if ( state.queryTimer !== null ) {
+            clearTimeout(state.queryTimer);
         }
+        state.queryTimer = setTimeout(
+            () => {
+                state.queryTimer = null;
+                findCommit(cm, 0);
+            },
+            350
+        );
     }
 
     function searchWidgetClickHandler(cm, ev) {
         var tcl = ev.target.classList;
         if ( tcl.contains('cm-search-widget-up') ) {
-            findNext(cm, true);
+            findNext(cm, -1);
         } else if ( tcl.contains('cm-search-widget-down') ) {
-            findNext(cm, false);
+            findNext(cm, 1);
         }
         if ( ev.target.localName !== 'input' ) {
             ev.preventDefault();
@@ -156,7 +152,7 @@
             return true;
         }
         if ( queryText.length !== 0 ) {
-            findNext(cm, command === 'findPrev');
+            findNext(cm, command === 'findPrev' ? -1 : 1);
         }
         return true;
     }
@@ -215,30 +211,34 @@
                 state.query,
                 queryCaseInsensitive(state.query)
             );
-            var count = state.annotate.matches.length;
+            let count = state.annotate.matches.length;
             state.widget
                  .querySelector('.cm-search-widget-count > span:nth-of-type(2)')
                  .textContent = count > 1000 ? '1000+' : count;
             state.widget.setAttribute('data-query', state.queryText);
+            // Ensure the caret is visible
+            let input = state.widget.querySelector('.cm-search-widget-input > input');
+            input.selectionStart = input.selectionStart;
         }
     }
 
-    function findNext(cm, rev, callback) {
+    function findNext(cm, dir, callback) {
         cm.operation(function() {
             var state = getSearchState(cm);
             if ( !state.query ) { return; }
             var cursor = getSearchCursor(
                 cm,
                 state.query,
-                rev ? cm.getCursor('from') : cm.getCursor('to')
+                dir <= 0 ? cm.getCursor('from') : cm.getCursor('to')
             );
-            if (!cursor.find(rev)) {
+            let previous = dir < 0;
+            if (!cursor.find(previous)) {
                 cursor = getSearchCursor(
                     cm,
                     state.query,
-                    rev ? CodeMirror.Pos(cm.lastLine()) : CodeMirror.Pos(cm.firstLine(), 0)
+                    previous ? CodeMirror.Pos(cm.lastLine()) : CodeMirror.Pos(cm.firstLine(), 0)
                 );
-                if (!cursor.find(rev)) return;
+                if (!cursor.find(previous)) return;
             }
             cm.setSelection(cursor.from(), cursor.to());
             cm.scrollIntoView({from: cursor.from(), to: cursor.to()}, 20);
@@ -270,7 +270,7 @@
         });
     }
 
-    function findCommit(cm) {
+    function findCommit(cm, dir) {
         var state = getSearchState(cm);
         if ( state.queryTimer !== null ) {
             clearTimeout(state.queryTimer);
@@ -284,7 +284,7 @@
         } else {
             cm.operation(function() {
                 startSearch(cm, state);
-                findNext(cm, false);
+                findNext(cm, dir);
             });
         }
     }
@@ -300,17 +300,17 @@
             cm.setCursor(word.anchor);
         }
         queryTextToSearchWidget(cm, queryText);
-        findCommit(cm);
+        findCommit(cm, 1);
     }
 
     function findNextCommand(cm) {
         var state = getSearchState(cm);
-        if ( state.query ) { return findNext(cm, false); }
+        if ( state.query ) { return findNext(cm, 1); }
     }
 
     function findPrevCommand(cm) {
         var state = getSearchState(cm);
-        if ( state.query ) { return findNext(cm, true); }
+        if ( state.query ) { return findNext(cm, -1); }
     }
 
     CodeMirror.commands.find = findCommand;

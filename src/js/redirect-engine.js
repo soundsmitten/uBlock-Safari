@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2015-2018 Raymond Hill
+    Copyright (C) 2015-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,13 +28,13 @@
 /******************************************************************************/
 /******************************************************************************/
 
-var warResolve = (function() {
-    var warPairs = [];
+const warResolve = (function() {
+    let warPairs = [];
 
-    var onPairsReady = function() {
-        var reng = µBlock.redirectEngine;
-        for ( var i = 0; i < warPairs.length; i += 2 ) {
-            var resource = reng.resources.get(warPairs[i+0]);
+    const onPairsReady = function() {
+        const reng = µBlock.redirectEngine;
+        for ( let i = 0; i < warPairs.length; i += 2 ) {
+            const resource = reng.resources.get(warPairs[i+0]);
             if ( resource === undefined ) { continue; }
             resource.warURL = vAPI.getURL(
                 '/web_accessible_resources/' + warPairs[i+1]
@@ -48,15 +48,15 @@ var warResolve = (function() {
             return onPairsReady();
         }
 
-        var onPairsLoaded = function(details) {
-            var marker = '>>>>>';
-            var pos = details.content.indexOf(marker);
+        const onPairsLoaded = function(details) {
+            const marker = '>>>>>';
+            const pos = details.content.indexOf(marker);
             if ( pos === -1 ) { return; }
-            var pairs = details.content.slice(pos + marker.length)
+            const pairs = details.content.slice(pos + marker.length)
                                       .trim()
                                       .split('\n');
             if ( (pairs.length & 1) !== 0 ) { return; }
-            for ( var i = 0; i < pairs.length; i++ ) {
+            for ( let i = 0; i < pairs.length; i++ ) {
                 pairs[i] = pairs[i].trim();
             }
             warPairs = pairs;
@@ -64,16 +64,24 @@ var warResolve = (function() {
         };
 
         µBlock.assets.fetchText(
-            '/web_accessible_resources/imported.txt?secret=' + vAPI.warSecret,
+            `/web_accessible_resources/imported.txt?secret=${vAPI.warSecret}`,
             onPairsLoaded
         );
     };
 })();
 
+// https://github.com/gorhill/uBlock/issues/3639
+// https://github.com/EFForg/https-everywhere/issues/14961
+// https://bugs.chromium.org/p/chromium/issues/detail?id=111700
+//   Do not redirect to a WAR if the platform suffers from spurious redirect
+//   conflicts, and the request to redirect is not `https:`.
+//   This special handling code can removed once the Chromium issue is fixed.
+const suffersSpuriousRedirectConflicts = vAPI.webextFlavor.soup.has('chromium');
+
 /******************************************************************************/
 /******************************************************************************/
 
-var RedirectEntry = function() {
+const RedirectEntry = function() {
     this.mime = '';
     this.data = '';
     this.warURL = undefined;
@@ -87,11 +95,15 @@ var RedirectEntry = function() {
 // - https://stackoverflow.com/a/8056313
 // - https://bugzilla.mozilla.org/show_bug.cgi?id=998076
 
-RedirectEntry.prototype.toURL = function(details) {
+RedirectEntry.prototype.toURL = function(fctxt) {
     if (
         this.warURL !== undefined &&
-        details instanceof Object &&
-        details.requestType !== 'xmlhttprequest'
+        fctxt instanceof Object &&
+        fctxt.type !== 'xmlhttprequest' &&
+        (
+            suffersSpuriousRedirectConflicts === false ||
+            fctxt.url.startsWith('https:')
+        )
     ) {
         return this.warURL + '?secret=' + vAPI.warSecret;
     }
@@ -141,7 +153,7 @@ RedirectEntry.fromSelfie = function(selfie) {
 /******************************************************************************/
 /******************************************************************************/
 
-var RedirectEngine = function() {
+const RedirectEngine = function() {
     this.resources = new Map();
     this.reset();
     this.resourceNameRegister = '';
@@ -175,14 +187,14 @@ RedirectEngine.prototype.toBroaderHostname = function(hostname) {
 
 /******************************************************************************/
 
-RedirectEngine.prototype.lookup = function(context) {
-    var type = context.requestType;
+RedirectEngine.prototype.lookup = function(fctxt) {
+    const type = fctxt.type;
     if ( this.ruleTypes.has(type) === false ) { return; }
-    var src = context.pageHostname,
-        des = context.requestHostname,
-        desAll = this._desAll,
-        reqURL = context.requestURL;
-    var n = 0;
+    const desAll = this._desAll;
+    const reqURL = fctxt.url;
+    let src = fctxt.getDocHostname();
+    let des = fctxt.getHostname();
+    let n = 0;
     for (;;) {
         if ( this.ruleDestinations.has(des) ) {
             desAll[n] = des; n += 1;
@@ -191,11 +203,10 @@ RedirectEngine.prototype.lookup = function(context) {
         if ( des === '' ) { break; }
     }
     if ( n === 0 ) { return; }
-    var entries;
     for (;;) {
         if ( this.ruleSources.has(src) ) {
-            for ( var i = 0; i < n; i++ ) {
-                entries = this.rules.get(src + ' ' + desAll[i] + ' ' + type);
+            for ( let i = 0; i < n; i++ ) {
+                const entries = this.rules.get(src + ' ' + desAll[i] + ' ' + type);
                 if ( entries && this.lookupToken(entries, reqURL) ) {
                     return this.resourceNameRegister;
                 }
@@ -207,9 +218,9 @@ RedirectEngine.prototype.lookup = function(context) {
 };
 
 RedirectEngine.prototype.lookupToken = function(entries, reqURL) {
-    var j = entries.length, entry;
+    let j = entries.length;
     while ( j-- ) {
-        entry = entries[j];
+        let entry = entries[j];
         if ( entry.pat instanceof RegExp === false ) {
             entry.pat = new RegExp(entry.pat, 'i');
         }
@@ -222,12 +233,12 @@ RedirectEngine.prototype.lookupToken = function(entries, reqURL) {
 
 /******************************************************************************/
 
-RedirectEngine.prototype.toURL = function(context) {
-    var token = this.lookup(context);
+RedirectEngine.prototype.toURL = function(fctxt) {
+    let token = this.lookup(fctxt);
     if ( token === undefined ) { return; }
-    var entry = this.resources.get(token);
+    let entry = this.resources.get(token);
     if ( entry !== undefined ) {
-        return entry.toURL(context);
+        return entry.toURL(fctxt);
     }
 };
 
@@ -288,20 +299,17 @@ RedirectEngine.prototype.fromCompiledRule = function(line) {
 /******************************************************************************/
 
 RedirectEngine.prototype.compileRuleFromStaticFilter = function(line) {
-    var matches = this.reFilterParser.exec(line);
-    if ( matches === null || matches.length !== 4 ) {
-        return;
-    }
-    var µburi = µBlock.URI,
-        des = matches[1] || '',
-        pattern = (des + matches[2]).replace(/[.+?{}()|[\]\/\\]/g, '\\$&')
-                                    .replace(/\^/g, '[^\\w\\d%-]')
-                                    .replace(/\*/g, '.*?'),
-        type,
+    const matches = this.reFilterParser.exec(line);
+    if ( matches === null || matches.length !== 4 ) { return; }
+
+    let des = matches[1] || '';
+    const pattern = (des + matches[2]).replace(/[.+?{}()|[\]\/\\]/g, '\\$&')
+                                      .replace(/\^/g, '[^\\w.%-]')
+                                      .replace(/\*/g, '.*?');
+    let type,
         redirect = '',
-        srcs = [],
-        options = matches[3].split(','), option;
-    while ( (option = options.pop()) ) {
+        srcs = [];
+    for ( const option of matches[3].split(',') ) {
         if ( option.startsWith('redirect=') ) {
             redirect = option.slice(9);
             continue;
@@ -310,29 +318,23 @@ RedirectEngine.prototype.compileRuleFromStaticFilter = function(line) {
             srcs = option.slice(7).split('|');
             continue;
         }
-        if ( option === 'first-party' ) {
-            srcs.push(µburi.domainFromHostname(des) || des);
+        if ( option === 'first-party' || option === '1p' ) {
+            srcs.push(µBlock.URI.domainFromHostname(des) || des);
             continue;
         }
         // One and only one type must be specified.
-        if ( option in this.supportedTypes ) {
-            if ( type !== undefined ) {
-                return;
-            }
-            type = this.supportedTypes[option];
+        if ( this.supportedTypes.has(option) ) {
+            if ( type !== undefined ) { return; }
+            type = this.supportedTypes.get(option);
             continue;
         }
     }
 
     // Need a resource token.
-    if ( redirect === '' ) {
-        return;
-    }
+    if ( redirect === '' ) { return; }
 
     // Need one single type -- not negated.
-    if ( type === undefined || type.startsWith('~') ) {
-        return;
-    }
+    if ( type === undefined ) { return; }
 
     if ( des === '' ) {
         des = '*';
@@ -342,16 +344,10 @@ RedirectEngine.prototype.compileRuleFromStaticFilter = function(line) {
         srcs.push('*');
     }
 
-    var out = [];
-    var i = srcs.length, src;
-    while ( i-- ) {
-        src = srcs[i];
-        if ( src === '' ) {
-            continue;
-        }
-        if ( src.startsWith('~') ) {
-            continue;
-        }
+    const out = [];
+    for ( const src of srcs ) {
+        if ( src === '' ) { continue; }
+        if ( src.startsWith('~') ) { continue; }
         out.push(src + '\t' + des + '\t' + type + '\t' + pattern + '\t' + redirect);
     }
 
@@ -362,33 +358,33 @@ RedirectEngine.prototype.compileRuleFromStaticFilter = function(line) {
 
 RedirectEngine.prototype.reFilterParser = /^(?:\|\|([^\/:?#^*]+)|\*)([^$]+)\$([^$]+)$/;
 
-RedirectEngine.prototype.supportedTypes = (function() {
-    var types = Object.create(null);
-    types.font = 'font';
-    types.image = 'image';
-    types.media = 'media';
-    types.object = 'object';
-    types.script = 'script';
-    types.stylesheet = 'stylesheet';
-    types.subdocument = 'sub_frame';
-    types.xmlhttprequest = 'xmlhttprequest';
-    return types;
-})();
+RedirectEngine.prototype.supportedTypes = new Map([
+    [ 'css', 'stylesheet' ],
+    [ 'font', 'font' ],
+    [ 'image', 'image' ],
+    [ 'media', 'media' ],
+    [ 'object', 'object' ],
+    [ 'script', 'script' ],
+    [ 'stylesheet', 'stylesheet' ],
+    [ 'frame', 'sub_frame' ],
+    [ 'subdocument', 'sub_frame' ],
+    [ 'xhr', 'xmlhttprequest' ],
+    [ 'xmlhttprequest', 'xmlhttprequest' ],
+]);
 
 /******************************************************************************/
 
-RedirectEngine.prototype.toSelfie = function() {
+RedirectEngine.prototype.toSelfie = function(path) {
     // Because rules may contains RegExp instances, we need to manually
     // convert it to a serializable format. The serialized format must be
     // suitable to be used as an argument to the Map() constructor.
-    var rules = [],
-        rule, entries, i, entry;
-    for ( var item of this.rules ) {
-        rule = [ item[0], [] ];
-        entries = item[1];
-        i = entries.length;
+    const rules = [];
+    for ( const item of this.rules ) {
+        const rule = [ item[0], [] ];
+        const entries = item[1];
+        let i = entries.length;
         while ( i-- ) {
-            entry = entries[i];
+            const entry = entries[i];
             rule[1].push({
                 tok: entry.tok,
                 pat: entry.pat instanceof RegExp ? entry.pat.source : entry.pat
@@ -396,24 +392,34 @@ RedirectEngine.prototype.toSelfie = function() {
         }
         rules.push(rule);
     }
-    var µb = µBlock;
-    return {
-        rules: rules,
-        ruleTypes: µb.arrayFrom(this.ruleTypes),
-        ruleSources: µb.arrayFrom(this.ruleSources),
-        ruleDestinations: µb.arrayFrom(this.ruleDestinations)
-    };
+    return µBlock.assets.put(
+        `${path}/main`,
+        JSON.stringify({
+            rules: rules,
+            ruleTypes: Array.from(this.ruleTypes),
+            ruleSources: Array.from(this.ruleSources),
+            ruleDestinations: Array.from(this.ruleDestinations)
+        })
+    );
 };
 
 /******************************************************************************/
 
-RedirectEngine.prototype.fromSelfie = function(selfie) {
-    this.rules = new Map(selfie.rules);
-    this.ruleTypes = new Set(selfie.ruleTypes);
-    this.ruleSources = new Set(selfie.ruleSources);
-    this.ruleDestinations = new Set(selfie.ruleDestinations);
-    this.modifyTime = Date.now();
-    return true;
+RedirectEngine.prototype.fromSelfie = function(path) {
+    return µBlock.assets.get(`${path}/main`).then(details => {
+        let selfie;
+        try {
+            selfie = JSON.parse(details.content);
+        } catch (ex) {
+        }
+        if ( selfie instanceof Object === false ) { return false; }
+        this.rules = new Map(selfie.rules);
+        this.ruleTypes = new Set(selfie.ruleTypes);
+        this.ruleSources = new Set(selfie.ruleSources);
+        this.ruleDestinations = new Set(selfie.ruleDestinations);
+        this.modifyTime = Date.now();
+        return true;
+    });
 };
 
 /******************************************************************************/
@@ -446,24 +452,26 @@ RedirectEngine.prototype.resourceContentFromName = function(name, mime) {
 
 // TODO: combine same key-redirect pairs into a single regex.
 
+// https://github.com/uBlockOrigin/uAssets/commit/deefe875551197d655f79cb540e62dfc17c95f42
+//   Consider 'none' a reserved keyword, to be used to disable redirection.
+
 RedirectEngine.prototype.resourcesFromString = function(text) {
-    var line, fields, encoded,
+    let fields, encoded,
         reNonEmptyLine = /\S/,
         lineIter = new µBlock.LineIterator(text);
 
     this.resources = new Map();
 
     while ( lineIter.eot() === false ) {
-        line = lineIter.next();
+        let line = lineIter.next();
         if ( line.startsWith('#') ) { continue; }
 
         if ( fields === undefined ) {
-            fields = line.trim().split(/\s+/);
-            if ( fields.length === 2 ) {
-                encoded = fields[1].indexOf(';') !== -1;
-            } else {
-                fields = undefined;
-            }
+            let head = line.trim().split(/\s+/);
+            if ( head.length !== 2 ) { continue; }
+            if ( head[0] === 'none' ) { continue; }
+            encoded = head[1].indexOf(';') !== -1;
+            fields = head;
             continue;
         }
 
@@ -473,14 +481,20 @@ RedirectEngine.prototype.resourcesFromString = function(text) {
         }
 
         // No more data, add the resource.
-        this.resources.set(fields[0], RedirectEntry.fromFields(fields[1], fields.slice(2)));
+        this.resources.set(
+            fields[0],
+            RedirectEntry.fromFields(fields[1], fields.slice(2))
+        );
 
         fields = undefined;
     }
 
     // Process pending resource data.
     if ( fields !== undefined ) {
-        this.resources.set(fields[0], RedirectEntry.fromFields(fields[1], fields.slice(2)));
+        this.resources.set(
+            fields[0],
+            RedirectEntry.fromFields(fields[1], fields.slice(2))
+        );
     }
 
     warResolve();
@@ -490,44 +504,47 @@ RedirectEngine.prototype.resourcesFromString = function(text) {
 
 /******************************************************************************/
 
-var resourcesSelfieVersion = 3;
+const resourcesSelfieVersion = 3;
 
 RedirectEngine.prototype.selfieFromResources = function() {
-    vAPI.cacheStorage.set({
-        resourcesSelfie: {
+    µBlock.assets.put(
+        'compiled/redirectEngine/resources',
+        JSON.stringify({
             version: resourcesSelfieVersion,
-            resources: µBlock.arrayFrom(this.resources)
-        }
-    });
+            resources: Array.from(this.resources)
+        })
+    );
 };
 
-RedirectEngine.prototype.resourcesFromSelfie = function(callback) {
-    var me = this;
-
-    var onSelfieReady = function(bin) {
-        if ( bin instanceof Object === false ) {
-            return callback(false);
+RedirectEngine.prototype.resourcesFromSelfie = function() {
+    return µBlock.assets.get(
+        'compiled/redirectEngine/resources'
+    ).then(details => {
+        let selfie;
+        try {
+            selfie = JSON.parse(details.content);
+        } catch(ex) {
         }
-        var selfie = bin.resourcesSelfie;
         if (
             selfie instanceof Object === false ||
             selfie.version !== resourcesSelfieVersion ||
             Array.isArray(selfie.resources) === false
         ) {
-            return callback(false);
+            return false;
         }
-        me.resources = new Map();
-        for ( var entry of bin.resourcesSelfie.resources ) {
-            me.resources.set(entry[0], RedirectEntry.fromSelfie(entry[1]));
+        this.resources = new Map();
+        for ( const [ token, entry ] of selfie.resources ) {
+            this.resources.set(token, RedirectEntry.fromSelfie(entry));
         }
-        callback(true);
-    };
-
-    vAPI.cacheStorage.get('resourcesSelfie', onSelfieReady);
+        return true;
+    });
 };
 
 RedirectEngine.prototype.invalidateResourcesSelfie = function() {
-    vAPI.cacheStorage.remove('resourcesSelfie');
+    µBlock.assets.remove('compiled/redirectEngine/resources');
+
+    // TODO: obsolete, remove eventually
+    µBlock.cacheStorage.remove('resourcesSelfie');
 };
 
 /******************************************************************************/

@@ -5,7 +5,7 @@
   },
   "extShortDesc": {
     "message": "இறுதியாக, ஒரு திறமையான விளம்பரத் தடுப்பான். கணினியின் மையச் செயற்பகுதியின் மேலும் நினைவகத்தின் மேலும் இலகுவானது.",
-    "description": "this will be in the chrome web store: must be 132 characters or less"
+    "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "dashboardName": {
     "message": "uBlock₀ - நிர்வாக மையம்",
@@ -31,6 +31,10 @@
     "message": "அனுமதிப்பட்டியல்",
     "description": "appears as tab name in dashboard"
   },
+  "shortcutsPageName": {
+    "message": "Shortcuts",
+    "description": "appears as tab name in dashboard"
+  },
   "statsPageName": {
     "message": "uBlock₀ — பிணையக் கோரிக்கைப் பதிகை",
     "description": "Title for the logger window"
@@ -39,8 +43,12 @@
     "message": "எம்மைப் பற்றி",
     "description": "appears as tab name in dashboard"
   },
+  "assetViewerPageName": {
+    "message": "uBlock₀ — Asset viewer",
+    "description": "Title for the asset viewer page"
+  },
   "advancedSettingsPageName": {
-    "message": "Advanced settings",
+    "message": "மேம்பட்ட அமைப்புகள்",
     "description": "Title for the advanced settings page"
   },
   "popupPowerSwitchInfo": {
@@ -139,6 +147,14 @@
     "message": "Click to no longer block remote fonts on this site",
     "description": "Tooltip for the no-remote-fonts per-site switch"
   },
+  "popupTipNoScripting1": {
+    "message": "Click to disable JavaScript on this site",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
+  "popupTipNoScripting2": {
+    "message": "Click to no longer disable JavaScript on this site",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
   "popupTipGlobalRules": {
     "message": "Global rules: this column is for rules which apply to all sites.",
     "description": "Tooltip when hovering the top-most cell of the global-rules column."
@@ -156,7 +172,7 @@
     "description": "Tooltip when hovering over the eraser in the dynamic filtering pane."
   },
   "popupAnyRulePrompt": {
-    "message": "அனைத்து",
+    "message": "அனைத்தும்",
     "description": ""
   },
   "popupImageRulePrompt": {
@@ -188,7 +204,7 @@
     "description": ""
   },
   "popupHitDomainCountPrompt": {
-    "message": "இணைக்கப்பட்டுள்ள ஆள்களங்கள்",
+    "message": "ஆள்களங்கள் இணைக்கப்பட்டுள்ளது",
     "description": "appears in popup"
   },
   "popupHitDomainCount": {
@@ -284,12 +300,16 @@
     "description": ""
   },
   "settingsNoLargeMediaPrompt": {
-    "message": "Block media elements larger than {{input:number}} kB",
+    "message": "Block media elements larger than {{input}} KB",
     "description": ""
   },
   "settingsNoRemoteFontsPrompt": {
     "message": "தொலை எழுத்துருக்களை தடு",
     "description": ""
+  },
+  "settingsNoScriptingPrompt": {
+    "message": "Disable JavaScript",
+    "description": "The default state for the per-site no-scripting switch"
   },
   "settingsNoCSPReportsPrompt": {
     "message": "Block CSP reports",
@@ -400,7 +420,7 @@
     "description": "used as a tooltip for the clock icon beside a list"
   },
   "3pUpdating": {
-    "message": "Updating...",
+    "message": "புதுப்பிக்கிறது...",
     "description": "used as a tooltip for the spinner icon beside a list"
   },
   "3pNetworkError": {
@@ -448,11 +468,11 @@
     "description": "Will enable manual-edit mode (textarea)"
   },
   "rulesEditSave": {
-    "message": "சேமிக்கும்",
+    "message": "சேமி",
     "description": "Will save manually-edited content and exit manual-edit mode"
   },
   "rulesEditDiscard": {
-    "message": "நிராகரிக்கபடும்",
+    "message": "நிராகரி",
     "description": "Will discard manually-edited content and exit manual-edit mode"
   },
   "rulesImport": {
@@ -476,7 +496,7 @@
     "description": "English: dynamic rule syntax and full documentation."
   },
   "whitelistPrompt": {
-    "message": "uBlock₀ முடக்கப்பட வேண்டிய இடங்களாக நீங்கள் குறிக்கும் வழங்கிப்பெயர்கள். ஒரு வரிக்கு ஒரு பெயர் மட்டுமே. தவறான வழங்கிப்பெயர்கள் அமைதியாகப் புறக்கணிக்கப்படும்.",
+    "message": "எந்தெந்தப் பக்கங்களில் uBlock₀ முடக்கப்பட வேண்டுமென்பதை அனுமதிப்பட்ட கட்டளைகள் ஆணையிடுகின்றன. வரிக்கு ஒரு இடுகை மட்டுமே. தவறான கட்டளைகள் அமைதியாகப் புறக்கணிக்கப்படும்.",
     "description": "English: An overview of the content of the dashboard's Whitelist pane."
   },
   "whitelistImport": {
@@ -512,24 +532,120 @@
     "description": "English: Filter"
   },
   "logAll": {
-    "message": "அனைத்து",
+    "message": "அனைத்தும்",
     "description": "Appears in the logger's tab selector"
   },
   "logBehindTheScene": {
-    "message": "திறக்கப்பட்ட இ.தளங்களின் பின்னால் நடப்பவை",
+    "message": "இ.தளங்களின் பின்னால் நடப்பவை",
     "description": "Pretty name for behind-the-scene network requests"
   },
   "loggerCurrentTab": {
     "message": "Current tab",
     "description": "Appears in the logger's tab selector"
   },
+  "loggerReloadTip": {
+    "message": "Reload the tab content",
+    "description": "Tooltip for the reload button in the logger page"
+  },
+  "loggerDomInspectorTip": {
+    "message": "Toggle the DOM inspector",
+    "description": "Tooltip for the DOM inspector button in the logger page"
+  },
+  "loggerPopupPanelTip": {
+    "message": "Toggle the popup panel",
+    "description": "Tooltip for the popup panel button in the logger page"
+  },
+  "loggerInfoTip": {
+    "message": "uBlock Origin wiki: The logger",
+    "description": "Tooltip for the top-right info label in the logger page"
+  },
+  "loggerClearTip": {
+    "message": "Clear logger",
+    "description": "Tooltip for the eraser in the logger page; used to blank the content of the logger"
+  },
+  "loggerPauseTip": {
+    "message": "Pause logger (discard all incoming data)",
+    "description": "Tooltip for the pause button in the logger page"
+  },
+  "loggerUnpauseTip": {
+    "message": "Unpause logger",
+    "description": "Tooltip for the play button in the logger page"
+  },
+  "loggerRowFiltererButtonTip": {
+    "message": "Toggle logger filtering",
+    "description": "Tooltip for the row filterer button in the logger page"
+  },
   "logFilterPrompt": {
     "message": "பதிகை உருப்படிகளை வடிகட்டு",
-    "description": "English: filter log entries"
+    "description": "Placeholder string for logger output filtering input field"
   },
-  "logMaxEntriesTip": {
-    "message": "பதிகை உருப்படிகளின் அதிகபட்ச எண்ணிக்கை",
-    "description": "Tooltip informaing that the input field is to set the maximum number of entries in the log"
+  "loggerRowFiltererBuiltinTip": {
+    "message": "Logger filtering options",
+    "description": "Tooltip for the button to bring up logger output filtering options"
+  },
+  "loggerRowFiltererBuiltinNot": {
+    "message": "Not",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinEventful": {
+    "message": "eventful",
+    "description": "A keyword in the built-in row filtering expression: all items corresponding to uBO doing something (blocked, allowed, redirected, etc.)"
+  },
+  "loggerRowFiltererBuiltinBlocked": {
+    "message": "blocked",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinAllowed": {
+    "message": "allowed",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin1p": {
+    "message": "1st-party",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin3p": {
+    "message": "3rd-party",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerEntryDetailsHeader": {
+    "message": "Details",
+    "description": "Small header to identify the 'Details' pane for a specific logger entry"
+  },
+  "loggerEntryDetailsFilter": {
+    "message": "Filter",
+    "description": "Label to identify a filter field"
+  },
+  "loggerEntryDetailsFilterList": {
+    "message": "Filter list",
+    "description": "Label to identify a filter list field"
+  },
+  "loggerEntryDetailsRule": {
+    "message": "Rule",
+    "description": "Label to identify a rule field"
+  },
+  "loggerEntryDetailsContext": {
+    "message": "Context",
+    "description": "Label to identify a context field (typically a hostname)"
+  },
+  "loggerEntryDetailsRootContext": {
+    "message": "Root context",
+    "description": "Label to identify a root context field (typically a hostname)"
+  },
+  "loggerEntryDetailsPartyness": {
+    "message": "Partyness",
+    "description": "Label to identify a field providing partyness information"
+  },
+  "loggerEntryDetailsType": {
+    "message": "Type",
+    "description": "Label to identify the type of an entry"
+  },
+  "loggerEntryDetailsURL": {
+    "message": "URL",
+    "description": "Label to identify the URL of an entry"
+  },
+  "loggerURLFilteringHeader": {
+    "message": "மாறுநிலை உரலி வடிகட்டல்",
+    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerURLFilteringContextLabel": {
     "message": "சூழல்:",
@@ -538,10 +654,6 @@
   "loggerURLFilteringTypeLabel": {
     "message": "வகை:",
     "description": "Label for the type selector"
-  },
-  "loggerURLFilteringHeader": {
-    "message": "மாறுநிலை உரலி வடிகட்டல்",
-    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerStaticFilteringHeader": {
     "message": "நிலையான வடிகட்டுதல்",
@@ -552,7 +664,7 @@
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringSentencePartBlock": {
-    "message": "தடு",
+    "message": "முடக்கு",
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringSentencePartAllow": {
@@ -584,20 +696,84 @@
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringFinderSentence1": {
-    "message": "Static filter {{filter}} found in:",
-    "description": "Below this sentence, the filter lists in which the filter was found"
+    "message": "Static filter <code>{{filter}}<\/code> found in:",
+    "description": "Below this sentence, the filter list(s) in which the filter was found"
+  },
+  "loggerStaticFilteringFinderSentence2": {
+    "message": "Static filter <code>{{filter}}<\/code> could not be found in any of the currently enabled filter lists",
+    "description": "Message to show when a filter cannot be found in any filter lists"
+  },
+  "loggerSettingDiscardPrompt": {
+    "message": "Logger entries which do not fulfill all three conditions below will be automatically discarded:",
+    "description": "Logger setting: A sentence to describe the purpose of the settings below"
+  },
+  "loggerSettingPerEntryMaxAge": {
+    "message": "Preserve entries from the last {{input}} minutes",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxLoads": {
+    "message": "Preserve at most {{input}} page loads per tab",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxEntries": {
+    "message": "Preserve at most {{input}} entries per tab",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerEntryLineCount": {
+    "message": "Use {{input}} lines per entry in vertically expanded mode",
+    "description": "A logger setting"
+  },
+  "loggerSettingHideColumnsPrompt": {
+    "message": "Hide columns:",
+    "description": "Logger settings: a sentence to describe the purpose of the checkboxes below"
+  },
+  "loggerSettingHideColumnTime": {
+    "message": "{{input}} Time",
+    "description": "A label for the time column"
+  },
+  "loggerSettingHideColumnFilter": {
+    "message": "{{input}} Filter\/rule",
+    "description": "A label for the filter or rule column"
+  },
+  "loggerSettingHideColumnContext": {
+    "message": "{{input}} Context",
+    "description": "A label for the context column"
+  },
+  "loggerSettingHideColumnPartyness": {
+    "message": "{{input}} Partyness",
+    "description": "A label for the partyness column"
+  },
+  "loggerExportFormatList": {
+    "message": "List",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportFormatTable": {
+    "message": "Table",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportEncodePlain": {
+    "message": "Plain",
+    "description": "Label for radio-button to pick export text format"
+  },
+  "loggerExportEncodeMarkdown": {
+    "message": "Markdown",
+    "description": "Label for radio-button to pick export text format"
   },
   "aboutChangelog": {
     "message": "நிரல் மாற்றம் மற்றும் வெளியீடுகளின் பதிவு",
-    "description": "English: Change log"
+    "description": ""
   },
   "aboutWiki": {
     "message": "விக்கி",
-    "description": "English: project' wiki on Github"
+    "description": "English: project' wiki on GitHub"
   },
   "aboutSupport": {
     "message": "ஆதரவு",
     "description": "A link for where to get support"
+  },
+  "aboutIssues": {
+    "message": "Issue tracker",
+    "description": "Text for a link to official issue tracker"
   },
   "aboutCode": {
     "message": "மூல நிரல் (பொது மக்கள் உரிமம் பதிப்பு 3)",
@@ -606,6 +782,10 @@
   "aboutContributors": {
     "message": "பங்களிப்பாளர்கள்",
     "description": "English: Contributors"
+  },
+  "aboutDependencies": {
+    "message": "External dependencies (GPLv3-compatible):",
+    "description": "Shown in the About pane"
   },
   "aboutBackupDataButton": {
     "message": "கோப்பிற்கு காப்பு பிரதி எடு",
@@ -744,7 +924,7 @@
     "description": "for generic 'Submit' buttons"
   },
   "genericApplyChanges": {
-    "message": "Apply changes",
+    "message": "மாற்றங்களைச் செயல்படுத்து",
     "description": "for generic 'Apply changes' buttons"
   },
   "genericRevert": {
@@ -758,6 +938,18 @@
   "contextMenuTemporarilyAllowLargeMediaElements": {
     "message": "தற்காலிகமாகப் பெரிய ஒலி‍-ஒளி-படத்தொகுப்புகளின் கூறுகளை அனுமதி",
     "description": "A context menu entry, present when large media elements have been blocked on the current site"
+  },
+  "shortcutCapturePlaceholder": {
+    "message": "Type a shortcut",
+    "description": "Placeholder string for input field used to capture a keyboard shortcut"
+  },
+  "genericMergeViewScrollLock": {
+    "message": "Toggle locked scrolling",
+    "description": "Tooltip for the button used to lock scrolling between the views in the 'My rules' pane"
+  },
+  "genericCopyToClipboard": {
+    "message": "Copy to clipboard",
+    "description": "Label for buttons used to copy something to the clipboard"
   },
   "dummy": {
     "message": "This entry must be the last one",

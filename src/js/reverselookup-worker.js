@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2015-2017 Raymond Hill
+    Copyright (C) 2015-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,18 +25,18 @@
 
 /******************************************************************************/
 
-var listEntries = Object.create(null),
-    reBlockStart = /^#block-start-(\d+)\n/gm;
+const reBlockStart = /^#block-start-(\d+)\n/gm;
+let listEntries = Object.create(null);
 
 /******************************************************************************/
 
-var extractBlocks = function(content, begId, endId) {
+const extractBlocks = function(content, begId, endId) {
     reBlockStart.lastIndex = 0;
-    var out = [];
-    var match = reBlockStart.exec(content);
+    const out = [];
+    let match = reBlockStart.exec(content);
     while ( match !== null ) {
-        var beg = match.index + match[0].length;
-        var blockId = parseInt(match[1], 10);
+        const beg = match.index + match[0].length;
+        const blockId = parseInt(match[1], 10);
         if ( blockId >= begId && blockId < endId ) {
             var end = content.indexOf('#block-end-' + match[1], beg);
             out.push(content.slice(beg, end));
@@ -49,23 +49,22 @@ var extractBlocks = function(content, begId, endId) {
 
 /******************************************************************************/
 
-var fromNetFilter = function(details) {
-    var lists = [],
-        compiledFilter = details.compiledFilter,
-        entry, content, pos, notFound;
+const fromNetFilter = function(details) {
+    const lists = [];
+    const compiledFilter = details.compiledFilter;
 
-    for ( var assetKey in listEntries ) {
-        entry = listEntries[assetKey];
+    for ( const assetKey in listEntries ) {
+        const entry = listEntries[assetKey];
         if ( entry === undefined ) { continue; }
-        content = extractBlocks(entry.content, 0, 1000);
-        pos = 0;
+        const content = extractBlocks(entry.content, 0, 1000);
+        let pos = 0;
         for (;;) {
             pos = content.indexOf(compiledFilter, pos);
             if ( pos === -1 ) { break; }
             // We need an exact match.
             // https://github.com/gorhill/uBlock/issues/1392
             // https://github.com/gorhill/uBlock/issues/835
-            notFound = pos !== 0 && content.charCodeAt(pos - 1) !== 0x0A;
+            const notFound = pos !== 0 && content.charCodeAt(pos - 1) !== 0x0A;
             pos += compiledFilter.length;
             if (
                 notFound ||
@@ -74,6 +73,7 @@ var fromNetFilter = function(details) {
                 continue;
             }
             lists.push({
+                assetKey: assetKey,
                 title: entry.title,
                 supportURL: entry.supportURL
             });
@@ -81,7 +81,7 @@ var fromNetFilter = function(details) {
         }
     }
 
-    var response = {};
+    const response = {};
     response[details.rawFilter] = lists;
 
     postMessage({
@@ -112,18 +112,18 @@ var fromNetFilter = function(details) {
 // FilterContainer.fromCompiledContent() is our reference code to create
 // the various compiled versions.
 
-var fromCosmeticFilter = function(details) {
-    var match = /^#@?#\^?/.exec(details.rawFilter),
-        prefix = match[0],
-        exception = prefix.charAt(1) === '@',
-        selector = details.rawFilter.slice(prefix.length);
+const fromCosmeticFilter = function(details) {
+    const match = /^#@?#\^?/.exec(details.rawFilter);
+    const prefix = match[0];
+    const exception = prefix.charAt(1) === '@';
+    const selector = details.rawFilter.slice(prefix.length);
 
     // The longer the needle, the lower the number of false positives.
-    var needle = selector.match(/\w+/g).reduce(function(a, b) {
+    const needle = selector.match(/\w+/g).reduce(function(a, b) {
         return a.length > b.length ? a : b;
     });
 
-    var reHostname = new RegExp(
+    const reHostname = new RegExp(
         '^' +
         details.hostname.split('.').reduce(
             function(acc, item) {
@@ -136,7 +136,7 @@ var fromCosmeticFilter = function(details) {
         '$'
     );
 
-    var reEntity,
+    let reEntity,
         domain = details.domain,
         pos = domain.indexOf('.');
     if ( pos !== -1 ) {
@@ -154,26 +154,37 @@ var fromCosmeticFilter = function(details) {
         );
     }
         
-    var response = Object.create(null),
-        assetKey, entry, content,
-        found, beg, end,
-        fargs, isProcedural;
+    const hostnameMatches = hn => {
+        return hn === '' ||
+               reHostname.test(hn) ||
+               reEntity !== undefined && reEntity.test(hn);
+    };
 
-    for ( assetKey in listEntries ) {
-        entry = listEntries[assetKey];
+    const response = Object.create(null);
+
+    for ( const assetKey in listEntries ) {
+        const entry = listEntries[assetKey];
         if ( entry === undefined ) { continue; }
-        content = extractBlocks(entry.content, 1000, 2000);
-        pos = 0;
-        found = undefined;
+        let content = extractBlocks(entry.content, 1000, 2000),
+            isProcedural,
+            found;
+        let pos = 0;
         while ( (pos = content.indexOf(needle, pos)) !== -1 ) {
-            beg = content.lastIndexOf('\n', pos);
+            let beg = content.lastIndexOf('\n', pos);
             if ( beg === -1 ) { beg = 0; }
-            end = content.indexOf('\n', pos);
+            let end = content.indexOf('\n', pos);
             if ( end === -1 ) { end = content.length; }
             pos = end;
-            fargs = JSON.parse(content.slice(beg, end));
+            let fargs = JSON.parse(content.slice(beg, end));
+
+            // https://github.com/gorhill/uBlock/issues/2763
+            if ( fargs[0] >= 0 && fargs[0] <= 5 && details.ignoreGeneric ) {
+                continue;
+            }
+
             switch ( fargs[0] ) {
-            case 0: // id-based
+            // Lowly generic cosmetic filters
+            case 0: // simple id-based
                 if (
                     fargs[1] === selector.slice(1) &&
                     selector.charAt(0) === '#'
@@ -181,7 +192,7 @@ var fromCosmeticFilter = function(details) {
                     found = prefix + selector;
                 }
                 break;
-            case 2: // class-based
+            case 2: // simple class-based
                 if (
                     fargs[1] === selector.slice(1) &&
                     selector.charAt(0) === '.'
@@ -189,39 +200,53 @@ var fromCosmeticFilter = function(details) {
                     found = prefix + selector;
                 }
                 break;
-            case 1: // id-based
-            case 3: // class-based
+            case 1: // complex id-based
+            case 3: // complex class-based
                 if ( fargs[2] === selector ) {
                     found = prefix + selector;
                 }
                 break;
-            case 4:
-            case 5:
-            case 7:
+            // Highly generic cosmetic filters
+            case 4: // simple highly generic
+            case 5: // complex highly generic
+            case 7: // generic exception
                 if ( fargs[1] === selector ) {
                     found = prefix + selector;
                 }
                 break;
+            // Specific cosmetic filtering
             case 8:
-            case 9:
-            case 32:
-            case 64:
-            case 65:
-                if ( exception !== (fargs[1].charAt(0) === '!') ) {
-                    break;
-                }
-                isProcedural = fargs[3].charCodeAt(0) === 0x7B;
+                if ( exception !== ((fargs[1] & 0b0001) !== 0) ) { break; }
+                isProcedural = (fargs[1] & 0b0010) !== 0;
                 if (
                     isProcedural === false && fargs[3] !== selector ||
                     isProcedural && JSON.parse(fargs[3]).raw !== selector
                 ) {
                     break;
                 }
+                if ( hostnameMatches(fargs[2]) ) {
+                    found = fargs[2] + prefix + selector;
+                }
+                break;
+            // Scriptlet injection
+            case 32:
+                if ( exception !== ((fargs[1] & 0b0001) !== 0) ) { break; }
+                if ( fargs[3] !== selector ) { break; }
+                if ( hostnameMatches(fargs[2]) ) {
+                    found = fargs[2] + prefix + selector;
+                }
+                break;
+            // HTML filtering
+            case 64: // CSS selector
+            case 65: // procedural
+                if ( exception !== ((fargs[1] & 0b0001) !== 0) ) { break; }
                 if (
-                    fargs[2] === '' ||
-                    reHostname.test(fargs[2]) === true ||
-                    reEntity !== undefined && reEntity.test(fargs[2]) === true
+                    fargs[0] === 64 && fargs[3] !== selector ||
+                    fargs[0] === 65 && JSON.parse(fargs[3]).raw !== selector
                 ) {
+                    break;
+                }
+                if ( hostnameMatches(fargs[2]) ) {
                     found = fargs[2] + prefix + selector;
                 }
                 break;
@@ -231,6 +256,7 @@ var fromCosmeticFilter = function(details) {
                     response[found] = [];
                 }
                 response[found].push({
+                    assetKey: assetKey,
                     title: entry.title,
                     supportURL: entry.supportURL
                 });
@@ -248,7 +274,7 @@ var fromCosmeticFilter = function(details) {
 /******************************************************************************/
 
 onmessage = function(e) { // jshint ignore:line
-    var msg = e.data;
+    const msg = e.data;
 
     switch ( msg.what ) {
     case 'resetLists':

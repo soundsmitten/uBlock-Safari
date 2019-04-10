@@ -5,7 +5,7 @@
   },
   "extShortDesc": {
     "message": "Végre egy hatékony reklám- és követésblokkoló böngészőkhöz, amely kíméletes a processzorral és a memóriával.",
-    "description": "this will be in the chrome web store: must be 132 characters or less"
+    "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "dashboardName": {
     "message": "uBlock₀ — Vezérlőpult",
@@ -31,6 +31,10 @@
     "message": "Kivételek",
     "description": "appears as tab name in dashboard"
   },
+  "shortcutsPageName": {
+    "message": "Billentyűparancsok",
+    "description": "appears as tab name in dashboard"
+  },
   "statsPageName": {
     "message": "uBlock₀ — Hálózati lekérések naplója",
     "description": "Title for the logger window"
@@ -38,6 +42,10 @@
   "aboutPageName": {
     "message": "Névjegy",
     "description": "appears as tab name in dashboard"
+  },
+  "assetViewerPageName": {
+    "message": "uBlock₀ - Eszköznézet",
+    "description": "Title for the asset viewer page"
   },
   "advancedSettingsPageName": {
     "message": "Haladó beállítások",
@@ -48,7 +56,7 @@
     "description": "English: Click: disable\/enable uBlock₀ for this site.\n\nCtrl+click: disable uBlock₀ only on this page."
   },
   "popupPowerSwitchInfo1": {
-    "message": "Kattints a uBlock₀ letiltásához ezen a webhelyen.\n\nCtrl+klikk a uBlock₀ letiltásához csak a jelenlegi oldalon.",
+    "message": "Kattints a uBlock₀ letiltásához ezen a webhelyen.\n\nCtrl+kattintás a uBlock₀ letiltásához csak a jelenlegi oldalon.",
     "description": "Message to be read by screen readers"
   },
   "popupPowerSwitchInfo2": {
@@ -100,7 +108,7 @@
     "description": "Tooltip for the no-popups per-site switch"
   },
   "popupTipNoPopups2": {
-    "message": "Kattints az összes előugró ablak blokkolásának visszavonásához ezen a webhelyen",
+    "message": "Kattints, hogy ne legyen többé az összes előugró ablak blokkolva ezen a webhelyen",
     "description": "Tooltip for the no-popups per-site switch"
   },
   "popupTipNoLargeMedia": {
@@ -132,12 +140,20 @@
     "description": "Tooltip for the no-remote-fonts per-site switch"
   },
   "popupTipNoRemoteFonts1": {
-    "message": "Kattints a távoli fontok blokkolásához ezen a webhelyen",
+    "message": "Kattints a távoli betűtípusok blokkolásához ezen a webhelyen",
     "description": "Tooltip for the no-remote-fonts per-site switch"
   },
   "popupTipNoRemoteFonts2": {
-    "message": "Kattints a távoli fontok blokkolásának visszavonásához ezen a webhelyen",
+    "message": "Kattints a távoli betűtípusok blokkolásának visszavonásához ezen a webhelyen",
     "description": "Tooltip for the no-remote-fonts per-site switch"
+  },
+  "popupTipNoScripting1": {
+    "message": "Kattints a JavaScript teljes letiltásához ezen az oldalon",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
+  "popupTipNoScripting2": {
+    "message": "Kattints, hogy JavaScript ne legyen teljesen letiltva ezen az oldalon",
+    "description": "Tooltip for the no-scripting per-site switch"
   },
   "popupTipGlobalRules": {
     "message": "Globális szabályok: ebben az oszlopban azok a szabályok vannak, amelyek minden weboldalra vonatkoznak.",
@@ -168,7 +184,7 @@
     "description": ""
   },
   "popup3pPassiveRulePrompt": {
-    "message": "3rd-party css\/képek",
+    "message": "külső féltől származó css\/képek",
     "description": ""
   },
   "popupInlineScriptRulePrompt": {
@@ -284,12 +300,16 @@
     "description": ""
   },
   "settingsNoLargeMediaPrompt": {
-    "message": "{{input:number}} kB-nál nagyobb média elemek blokkolása",
+    "message": "Média elemek blokkolása, amelyek nagyobbak, mint {{input:number}} kB",
     "description": ""
   },
   "settingsNoRemoteFontsPrompt": {
     "message": "Távoli betűkészletek blokkolása",
     "description": ""
+  },
+  "settingsNoScriptingPrompt": {
+    "message": "JavaScript letiltása",
+    "description": "The default state for the per-site no-scripting switch"
   },
   "settingsNoCSPReportsPrompt": {
     "message": "CSP jelentések blokkolása",
@@ -352,7 +372,7 @@
     "description": "English: Apply changes"
   },
   "3pGroupDefault": {
-    "message": "Helyi",
+    "message": "Beépített",
     "description": "Header for the uBlock filters section in 'Filter lists pane'"
   },
   "3pGroupAds": {
@@ -408,7 +428,7 @@
     "description": "used as a tooltip for error icon beside a list"
   },
   "1pFormatHint": {
-    "message": "Soronként egy szűrő. A szűrő lehet egy hostnév, vagy egy Adblock Plus kompatibilis szűrő.\nA &lsquo;!&rsquo; kezdetű sorok figyelmen kívül maradnak.",
+    "message": "Soronként egy szűrő. A szűrő lehet egy hostnév, vagy egy Adblock Plus kompatibilis szűrő.\nA <code>!<\/code> kezdetű sorok figyelmen kívül maradnak.",
     "description": "Short information about how to create custom filters"
   },
   "1pImport": {
@@ -516,20 +536,116 @@
     "description": "Appears in the logger's tab selector"
   },
   "logBehindTheScene": {
-    "message": "Hálózati lekérések a háttérben",
+    "message": "Hálózati forgalom a háttérben",
     "description": "Pretty name for behind-the-scene network requests"
   },
   "loggerCurrentTab": {
     "message": "Jelenlegi lap",
     "description": "Appears in the logger's tab selector"
   },
+  "loggerReloadTip": {
+    "message": "Töltse újra a lap tartalmát",
+    "description": "Tooltip for the reload button in the logger page"
+  },
+  "loggerDomInspectorTip": {
+    "message": "DOM ellenőrző kapcsolása",
+    "description": "Tooltip for the DOM inspector button in the logger page"
+  },
+  "loggerPopupPanelTip": {
+    "message": "Felugró panel kapcsolása",
+    "description": "Tooltip for the popup panel button in the logger page"
+  },
+  "loggerInfoTip": {
+    "message": "uBlock Origin wiki: A naplózó",
+    "description": "Tooltip for the top-right info label in the logger page"
+  },
+  "loggerClearTip": {
+    "message": "Naplózó törlése",
+    "description": "Tooltip for the eraser in the logger page; used to blank the content of the logger"
+  },
+  "loggerPauseTip": {
+    "message": "Naplózás szüneteltetése (az összes bejövő adat elvetése)",
+    "description": "Tooltip for the pause button in the logger page"
+  },
+  "loggerUnpauseTip": {
+    "message": "Naplózó folytatása",
+    "description": "Tooltip for the play button in the logger page"
+  },
+  "loggerRowFiltererButtonTip": {
+    "message": "Naplózó szűrőjének kapcsolása",
+    "description": "Tooltip for the row filterer button in the logger page"
+  },
   "logFilterPrompt": {
     "message": "naplóbejegyzések szűrése",
-    "description": "English: filter log entries"
+    "description": "Placeholder string for logger output filtering input field"
   },
-  "logMaxEntriesTip": {
-    "message": "Naplóbejegyzések maximális száma",
-    "description": "Tooltip informaing that the input field is to set the maximum number of entries in the log"
+  "loggerRowFiltererBuiltinTip": {
+    "message": "Naplózó szűrő beállítások",
+    "description": "Tooltip for the button to bring up logger output filtering options"
+  },
+  "loggerRowFiltererBuiltinNot": {
+    "message": "Nem",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinEventful": {
+    "message": "eventful",
+    "description": "A keyword in the built-in row filtering expression: all items corresponding to uBO doing something (blocked, allowed, redirected, etc.)"
+  },
+  "loggerRowFiltererBuiltinBlocked": {
+    "message": "blokkolva",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinAllowed": {
+    "message": "engedélyezve",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin1p": {
+    "message": "1. fél",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin3p": {
+    "message": "3. fél",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerEntryDetailsHeader": {
+    "message": "Részletek",
+    "description": "Small header to identify the 'Details' pane for a specific logger entry"
+  },
+  "loggerEntryDetailsFilter": {
+    "message": "Szűrő",
+    "description": "Label to identify a filter field"
+  },
+  "loggerEntryDetailsFilterList": {
+    "message": "Szűrő lista",
+    "description": "Label to identify a filter list field"
+  },
+  "loggerEntryDetailsRule": {
+    "message": "Szabály",
+    "description": "Label to identify a rule field"
+  },
+  "loggerEntryDetailsContext": {
+    "message": "Kontextus",
+    "description": "Label to identify a context field (typically a hostname)"
+  },
+  "loggerEntryDetailsRootContext": {
+    "message": "Gyökér kontextus",
+    "description": "Label to identify a root context field (typically a hostname)"
+  },
+  "loggerEntryDetailsPartyness": {
+    "message": "Partyness",
+    "description": "Label to identify a field providing partyness information"
+  },
+  "loggerEntryDetailsType": {
+    "message": "Típus",
+    "description": "Label to identify the type of an entry"
+  },
+  "loggerEntryDetailsURL": {
+    "message": "URL",
+    "description": "Label to identify the URL of an entry"
+  },
+  "loggerURLFilteringHeader": {
+    "message": "Dinamikus URL szűrő",
+    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerURLFilteringContextLabel": {
     "message": "Kontextus:",
@@ -538,10 +654,6 @@
   "loggerURLFilteringTypeLabel": {
     "message": "Típus:",
     "description": "Label for the type selector"
-  },
-  "loggerURLFilteringHeader": {
-    "message": "Dinamikus URL szűrő",
-    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerStaticFilteringHeader": {
     "message": "Statikus szűrés",
@@ -584,20 +696,84 @@
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringFinderSentence1": {
-    "message": "Statikus filter, amiben {{filter}} benne van:",
-    "description": "Below this sentence, the filter lists in which the filter was found"
+    "message": "Statikus filter, amiben <code>{{filter}}<\/code> benne van:",
+    "description": "Below this sentence, the filter list(s) in which the filter was found"
+  },
+  "loggerStaticFilteringFinderSentence2": {
+    "message": "A statikus szűrő <code>{{filter}}<\/code> nem található az aktuálisan engedélyezett szűrőlisták egyikében sem",
+    "description": "Message to show when a filter cannot be found in any filter lists"
+  },
+  "loggerSettingDiscardPrompt": {
+    "message": "A naplózó bejegyzések, amelyek nem felelnek meg az alábbi három feltételnek, automatikusan eldobásra kerülnek:",
+    "description": "Logger setting: A sentence to describe the purpose of the settings below"
+  },
+  "loggerSettingPerEntryMaxAge": {
+    "message": "A bejegyzések megőrzése az utolsó {{input}} percből",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxLoads": {
+    "message": "Tartsa meg a legtöbb {{input}} lapot betöltéskor laponként",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxEntries": {
+    "message": "Tartsa meg a legtöbb {{input}} bejegyzést laponként",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerEntryLineCount": {
+    "message": "Használja a {{input}} sorokat egy bejegyzésre függőlegesen bővített módban",
+    "description": "A logger setting"
+  },
+  "loggerSettingHideColumnsPrompt": {
+    "message": "Oszlopok elrejtése:",
+    "description": "Logger settings: a sentence to describe the purpose of the checkboxes below"
+  },
+  "loggerSettingHideColumnTime": {
+    "message": "{{input}} Idő",
+    "description": "A label for the time column"
+  },
+  "loggerSettingHideColumnFilter": {
+    "message": "{{input}} Szűrő\/szabály",
+    "description": "A label for the filter or rule column"
+  },
+  "loggerSettingHideColumnContext": {
+    "message": "{{input}} Kontextus",
+    "description": "A label for the context column"
+  },
+  "loggerSettingHideColumnPartyness": {
+    "message": "{{input}} Partyness",
+    "description": "A label for the partyness column"
+  },
+  "loggerExportFormatList": {
+    "message": "Lista",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportFormatTable": {
+    "message": "Tábla",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportEncodePlain": {
+    "message": "Sík",
+    "description": "Label for radio-button to pick export text format"
+  },
+  "loggerExportEncodeMarkdown": {
+    "message": "Markdown",
+    "description": "Label for radio-button to pick export text format"
   },
   "aboutChangelog": {
     "message": "Változások listája",
-    "description": "English: Change log"
+    "description": ""
   },
   "aboutWiki": {
     "message": "Wiki",
-    "description": "English: project' wiki on Github"
+    "description": "English: project' wiki on GitHub"
   },
   "aboutSupport": {
     "message": "Támogatás",
     "description": "A link for where to get support"
+  },
+  "aboutIssues": {
+    "message": "Bugok és problémák",
+    "description": "Text for a link to official issue tracker"
   },
   "aboutCode": {
     "message": "Forráskód (GPLv3)",
@@ -606,6 +782,10 @@
   "aboutContributors": {
     "message": "Közreműködők",
     "description": "English: Contributors"
+  },
+  "aboutDependencies": {
+    "message": "Külső függőségek (GPLv3-kompatibilis):",
+    "description": "Shown in the About pane"
   },
   "aboutBackupDataButton": {
     "message": "Biztonsági mentés fájlba...",
@@ -758,6 +938,18 @@
   "contextMenuTemporarilyAllowLargeMediaElements": {
     "message": "Nagyméretű média elemek ideiglenes engedélyezése",
     "description": "A context menu entry, present when large media elements have been blocked on the current site"
+  },
+  "shortcutCapturePlaceholder": {
+    "message": "Billentyűkombináció megadása",
+    "description": "Placeholder string for input field used to capture a keyboard shortcut"
+  },
+  "genericMergeViewScrollLock": {
+    "message": "Zárolt görgetés kapcsolása",
+    "description": "Tooltip for the button used to lock scrolling between the views in the 'My rules' pane"
+  },
+  "genericCopyToClipboard": {
+    "message": "Másolás a vágólapra",
+    "description": "Label for buttons used to copy something to the clipboard"
   },
   "dummy": {
     "message": "Ez a bejegyzés utolsó kell hogy legyen",

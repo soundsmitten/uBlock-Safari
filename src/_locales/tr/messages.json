@@ -5,7 +5,7 @@
   },
   "extShortDesc": {
     "message": "Sonunda, etkili bir engelleyici. İşlemciyi ve belleği yormaz.",
-    "description": "this will be in the chrome web store: must be 132 characters or less"
+    "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "dashboardName": {
     "message": "uBlock₀ — Kontrol paneli",
@@ -31,6 +31,10 @@
     "message": "Beyaz liste",
     "description": "appears as tab name in dashboard"
   },
+  "shortcutsPageName": {
+    "message": "Kısayollar",
+    "description": "appears as tab name in dashboard"
+  },
   "statsPageName": {
     "message": "uBlock₀ — Günlükçü",
     "description": "Title for the logger window"
@@ -38,6 +42,10 @@
   "aboutPageName": {
     "message": "Hakkında",
     "description": "appears as tab name in dashboard"
+  },
+  "assetViewerPageName": {
+    "message": "uBlock₀ — Kaynak görüntüleyici",
+    "description": "Title for the asset viewer page"
   },
   "advancedSettingsPageName": {
     "message": "Gelişmiş ayarlar",
@@ -139,6 +147,14 @@
     "message": "Bu sitede uzak yazıtiplerini artık engellememek için tıklayın",
     "description": "Tooltip for the no-remote-fonts per-site switch"
   },
+  "popupTipNoScripting1": {
+    "message": "JavaScript'i bu sitede devre dışı bırakmak için tıklayın",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
+  "popupTipNoScripting2": {
+    "message": "JavaScript'i bu sitede artık devre dışı bırakmamak için tıklayın",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
   "popupTipGlobalRules": {
     "message": "Genel kurallar: bu sütun tüm sitelere uygulanan kurallar içindir.",
     "description": "Tooltip when hovering the top-most cell of the global-rules column."
@@ -168,7 +184,7 @@
     "description": ""
   },
   "popup3pPassiveRulePrompt": {
-    "message": "3. taraf css\/resim",
+    "message": "3. taraf CSS\/resimler",
     "description": ""
   },
   "popupInlineScriptRulePrompt": {
@@ -284,12 +300,16 @@
     "description": ""
   },
   "settingsNoLargeMediaPrompt": {
-    "message": "{{input:number}} kB'tan büyük medya ögelerini engelle",
+    "message": "{{input}} KB'tan büyük medya ögelerini engelle",
     "description": ""
   },
   "settingsNoRemoteFontsPrompt": {
     "message": "Uzak yazıtiplerini engelle",
     "description": ""
+  },
+  "settingsNoScriptingPrompt": {
+    "message": "JavaScript'i devre dışı bırak",
+    "description": "The default state for the per-site no-scripting switch"
   },
   "settingsNoCSPReportsPrompt": {
     "message": "CSP raporlarını engelle",
@@ -412,7 +432,7 @@
     "description": "Short information about how to create custom filters"
   },
   "1pImport": {
-    "message": "İçe aktar ve sonuna ekle",
+    "message": "İçe aktar ve ekle",
     "description": "English: Import and append"
   },
   "1pExport": {
@@ -476,11 +496,11 @@
     "description": "English: dynamic rule syntax and full documentation."
   },
   "whitelistPrompt": {
-    "message": "Beyaz liste yönergeleri, uBlock₀'in devre dışı bırakılması gerektiği web sayfalarını belirler. Satır başına bir girdi. Geçersiz yönergeler sessizce yok sayılır ve yoruma dönüştürülür.",
+    "message": "Beyaz liste yönergeleri, uBlock₀'in devre dışı bırakılması gerektiği web sayfalarını belirler. Her satırda bir girdi. Geçersiz yönergeler sessizce yok sayılır ve yoruma dönüştürülür.",
     "description": "English: An overview of the content of the dashboard's Whitelist pane."
   },
   "whitelistImport": {
-    "message": "İçe aktar ve sonuna ekle",
+    "message": "İçe aktar ve ekle",
     "description": "English: Import and append"
   },
   "whitelistExport": {
@@ -516,20 +536,116 @@
     "description": "Appears in the logger's tab selector"
   },
   "logBehindTheScene": {
-    "message": "Perde arkası",
+    "message": "Sekmesiz",
     "description": "Pretty name for behind-the-scene network requests"
   },
   "loggerCurrentTab": {
     "message": "Geçerli sekme",
     "description": "Appears in the logger's tab selector"
   },
-  "logFilterPrompt": {
-    "message": "günlük girdilerini süz",
-    "description": "English: filter log entries"
+  "loggerReloadTip": {
+    "message": "Sekme içeriğini tekrar yükle",
+    "description": "Tooltip for the reload button in the logger page"
   },
-  "logMaxEntriesTip": {
-    "message": "En fazla günlük girdi sayısı",
-    "description": "Tooltip informaing that the input field is to set the maximum number of entries in the log"
+  "loggerDomInspectorTip": {
+    "message": "DOM araştırıcısını aç\/kapa",
+    "description": "Tooltip for the DOM inspector button in the logger page"
+  },
+  "loggerPopupPanelTip": {
+    "message": "Açılır paneli aç\/kapa",
+    "description": "Tooltip for the popup panel button in the logger page"
+  },
+  "loggerInfoTip": {
+    "message": "uBlock₀ viki: Günlükçü",
+    "description": "Tooltip for the top-right info label in the logger page"
+  },
+  "loggerClearTip": {
+    "message": "Günlükçüyü temizle",
+    "description": "Tooltip for the eraser in the logger page; used to blank the content of the logger"
+  },
+  "loggerPauseTip": {
+    "message": "Günlükçüyü duraklat (tüm gelen veriyi yok say)",
+    "description": "Tooltip for the pause button in the logger page"
+  },
+  "loggerUnpauseTip": {
+    "message": "Günlükçüyü devam ettir",
+    "description": "Tooltip for the play button in the logger page"
+  },
+  "loggerRowFiltererButtonTip": {
+    "message": "Günlükçü süzmeyi aç\/kapa",
+    "description": "Tooltip for the row filterer button in the logger page"
+  },
+  "logFilterPrompt": {
+    "message": "günlükçü içeriğini süz",
+    "description": "Placeholder string for logger output filtering input field"
+  },
+  "loggerRowFiltererBuiltinTip": {
+    "message": "Günlükçü süzme seçenekleri",
+    "description": "Tooltip for the button to bring up logger output filtering options"
+  },
+  "loggerRowFiltererBuiltinNot": {
+    "message": "Değil",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinEventful": {
+    "message": "olaylı",
+    "description": "A keyword in the built-in row filtering expression: all items corresponding to uBO doing something (blocked, allowed, redirected, etc.)"
+  },
+  "loggerRowFiltererBuiltinBlocked": {
+    "message": "engelli",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinAllowed": {
+    "message": "izinli",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin1p": {
+    "message": "1. taraf",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin3p": {
+    "message": "3. taraf",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerEntryDetailsHeader": {
+    "message": "Ayrıntılar",
+    "description": "Small header to identify the 'Details' pane for a specific logger entry"
+  },
+  "loggerEntryDetailsFilter": {
+    "message": "Süzgeç",
+    "description": "Label to identify a filter field"
+  },
+  "loggerEntryDetailsFilterList": {
+    "message": "Süzgeç listesi",
+    "description": "Label to identify a filter list field"
+  },
+  "loggerEntryDetailsRule": {
+    "message": "Kural",
+    "description": "Label to identify a rule field"
+  },
+  "loggerEntryDetailsContext": {
+    "message": "Bağlam",
+    "description": "Label to identify a context field (typically a hostname)"
+  },
+  "loggerEntryDetailsRootContext": {
+    "message": "Kök bağlam",
+    "description": "Label to identify a root context field (typically a hostname)"
+  },
+  "loggerEntryDetailsPartyness": {
+    "message": "Taraf",
+    "description": "Label to identify a field providing partyness information"
+  },
+  "loggerEntryDetailsType": {
+    "message": "Tür",
+    "description": "Label to identify the type of an entry"
+  },
+  "loggerEntryDetailsURL": {
+    "message": "URL",
+    "description": "Label to identify the URL of an entry"
+  },
+  "loggerURLFilteringHeader": {
+    "message": "URL kuralı",
+    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerURLFilteringContextLabel": {
     "message": "Bağlam:",
@@ -538,10 +654,6 @@
   "loggerURLFilteringTypeLabel": {
     "message": "Tür:",
     "description": "Label for the type selector"
-  },
-  "loggerURLFilteringHeader": {
-    "message": "Dinamik URL süzme",
-    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerStaticFilteringHeader": {
     "message": "Statik süzme",
@@ -584,20 +696,84 @@
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringFinderSentence1": {
-    "message": "Statik süzgecin {{filter}} bulunduğu listeler:",
-    "description": "Below this sentence, the filter lists in which the filter was found"
+    "message": "Statik süzgecin <code>{{filter}}<\/code> bulunduğu listeler:",
+    "description": "Below this sentence, the filter list(s) in which the filter was found"
+  },
+  "loggerStaticFilteringFinderSentence2": {
+    "message": "Statik süzgeç <code>{{filter}}<\/code> şu anda etkin olan süzgeç listelerinin hiçbirinde bulunamadı",
+    "description": "Message to show when a filter cannot be found in any filter lists"
+  },
+  "loggerSettingDiscardPrompt": {
+    "message": "Aşağıdaki üç koşulu da sağlamayan günlükçü girdileri kendiliğinden yok sayılır:",
+    "description": "Logger setting: A sentence to describe the purpose of the settings below"
+  },
+  "loggerSettingPerEntryMaxAge": {
+    "message": "Son {{input}} dakikadaki girdileri sakla",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxLoads": {
+    "message": "Her sekme için en çok {{input}} sayfa yüklemesi sakla",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxEntries": {
+    "message": "Her sekme için en çok {{input}} girdi sakla",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerEntryLineCount": {
+    "message": "Dikey genişletilmiş modda, her girdi için {{input}} satır kullan",
+    "description": "A logger setting"
+  },
+  "loggerSettingHideColumnsPrompt": {
+    "message": "Sütunları gizle:",
+    "description": "Logger settings: a sentence to describe the purpose of the checkboxes below"
+  },
+  "loggerSettingHideColumnTime": {
+    "message": "{{input}} Tarih",
+    "description": "A label for the time column"
+  },
+  "loggerSettingHideColumnFilter": {
+    "message": "{{input}} Süzgeç\/kural",
+    "description": "A label for the filter or rule column"
+  },
+  "loggerSettingHideColumnContext": {
+    "message": "{{input}} Bağlam",
+    "description": "A label for the context column"
+  },
+  "loggerSettingHideColumnPartyness": {
+    "message": "{{input}} Taraf",
+    "description": "A label for the partyness column"
+  },
+  "loggerExportFormatList": {
+    "message": "Liste",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportFormatTable": {
+    "message": "Tablo",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportEncodePlain": {
+    "message": "Yalın",
+    "description": "Label for radio-button to pick export text format"
+  },
+  "loggerExportEncodeMarkdown": {
+    "message": "Markdown",
+    "description": "Label for radio-button to pick export text format"
   },
   "aboutChangelog": {
-    "message": "Değişiklikler",
-    "description": "English: Change log"
+    "message": "Değişiklik günlüğü",
+    "description": ""
   },
   "aboutWiki": {
     "message": "Viki",
-    "description": "English: project' wiki on Github"
+    "description": "English: project' wiki on GitHub"
   },
   "aboutSupport": {
     "message": "Destek",
     "description": "A link for where to get support"
+  },
+  "aboutIssues": {
+    "message": "Sorun izleyici",
+    "description": "Text for a link to official issue tracker"
   },
   "aboutCode": {
     "message": "Kaynak kodu (GPLv3)",
@@ -606,6 +782,10 @@
   "aboutContributors": {
     "message": "Katkıda bulunanlar",
     "description": "English: Contributors"
+  },
+  "aboutDependencies": {
+    "message": "Dış bağımlılıklar (GPLv3-uyumlu):",
+    "description": "Shown in the About pane"
   },
   "aboutBackupDataButton": {
     "message": "Dosyaya yedekle",
@@ -688,7 +868,7 @@
     "description": "English: Because of the following filter"
   },
   "docblockedNoParamsPrompt": {
-    "message": "parametresiz",
+    "message": "değişkensiz",
     "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
   },
   "docblockedFoundIn": {
@@ -758,6 +938,18 @@
   "contextMenuTemporarilyAllowLargeMediaElements": {
     "message": "Geçici olarak büyük medya ögelerine izin ver",
     "description": "A context menu entry, present when large media elements have been blocked on the current site"
+  },
+  "shortcutCapturePlaceholder": {
+    "message": "Bir kısayol girin",
+    "description": "Placeholder string for input field used to capture a keyboard shortcut"
+  },
+  "genericMergeViewScrollLock": {
+    "message": "Kilitli kaydırmayı aç\/kapa",
+    "description": "Tooltip for the button used to lock scrolling between the views in the 'My rules' pane"
+  },
+  "genericCopyToClipboard": {
+    "message": "Panoya kopyala",
+    "description": "Label for buttons used to copy something to the clipboard"
   },
   "dummy": {
     "message": "Bu girdi en sonda olmalıdır",

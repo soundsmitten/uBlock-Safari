@@ -5,7 +5,7 @@
   },
   "extShortDesc": {
     "message": "როგორც იქნა, მძლავრი და შედეგიანი რეკლამების შემზღუდავი. ზოგავს CPU-ს და მეხსიერებას.",
-    "description": "this will be in the chrome web store: must be 132 characters or less"
+    "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "dashboardName": {
     "message": "uBlock₀ — სამართავი დაფა",
@@ -31,6 +31,10 @@
     "message": "გამონაკლისები",
     "description": "appears as tab name in dashboard"
   },
+  "shortcutsPageName": {
+    "message": "მალსახმობები",
+    "description": "appears as tab name in dashboard"
+  },
   "statsPageName": {
     "message": "uBlock₀ — აღმრიცხავი",
     "description": "Title for the logger window"
@@ -38,6 +42,10 @@
   "aboutPageName": {
     "message": "შესახებ",
     "description": "appears as tab name in dashboard"
+  },
+  "assetViewerPageName": {
+    "message": "uBlock₀ — რესურსები",
+    "description": "Title for the asset viewer page"
   },
   "advancedSettingsPageName": {
     "message": "დამატებითი პარამეტრები",
@@ -138,6 +146,14 @@
   "popupTipNoRemoteFonts2": {
     "message": "დააწკაპეთ ვებშრიფტების შეზღუდვის გასაუქმებლად ამ საიტზე",
     "description": "Tooltip for the no-remote-fonts per-site switch"
+  },
+  "popupTipNoScripting1": {
+    "message": "დააწკაპეთ JavaScript-ის გასათიშად ამ საიტზე",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
+  "popupTipNoScripting2": {
+    "message": "დააწკაპეთ JavaScript-ზე შეზღუდვის მოსახსნელად ამ საიტზე",
+    "description": "Tooltip for the no-scripting per-site switch"
   },
   "popupTipGlobalRules": {
     "message": "გლობალური წესები: ეს სვეტი არის წესებისთვის, რომლებიც მოქმედებს ყველა საიტზე.",
@@ -268,7 +284,7 @@
     "description": "English: "
   },
   "settingsWebRTCIPAddressHiddenPrompt": {
-    "message": "WebRTC-სთვის ხელის შეშლა ლოკალური IP მისამართის გაჟონვაში",
+    "message": "WebRTC-სთვის ხელის შეშლა შიდა IP მისამართის გაჟონვაში",
     "description": "English: "
   },
   "settingPerSiteSwitchGroup": {
@@ -290,6 +306,10 @@
   "settingsNoRemoteFontsPrompt": {
     "message": "ვებშრიფტების შეზღუდვა",
     "description": ""
+  },
+  "settingsNoScriptingPrompt": {
+    "message": "JavaScript-ის გათიშვა",
+    "description": "The default state for the per-site no-scripting switch"
   },
   "settingsNoCSPReportsPrompt": {
     "message": "CSP მოხსენებების აკრძალვა",
@@ -352,7 +372,7 @@
     "description": "English: Apply changes"
   },
   "3pGroupDefault": {
-    "message": "ლოკალური",
+    "message": "ჩაშენებული",
     "description": "Header for the uBlock filters section in 'Filter lists pane'"
   },
   "3pGroupAds": {
@@ -388,7 +408,7 @@
     "description": "The label for the checkbox used to import external filter lists"
   },
   "3pExternalListsHint": {
-    "message": "თითოეული URL ცალკეულ ხაზზე. ხაზები &lsquo;!&rsquo; თავსართით უგულებელყოფილი იქნება. არამართებული URL ბმულები, უგულებელყოფილი იქნება გაფრთხილების გარეშე.",
+    "message": "თითოეული URL ცალკეულ ხაზზე. არამართებული URL ბმულები, უგულებელყოფილი იქნება გაფრთხილების გარეშე.",
     "description": "Short information about how to use the textarea to import external filter lists by URL"
   },
   "3pExternalListObsolete": {
@@ -523,13 +543,109 @@
     "message": "მიმდინარე ჩანართი",
     "description": "Appears in the logger's tab selector"
   },
+  "loggerReloadTip": {
+    "message": "ჩანართის შიგთავსის ხელახლა ჩატვირთვა",
+    "description": "Tooltip for the reload button in the logger page"
+  },
+  "loggerDomInspectorTip": {
+    "message": "DOM-დამკვირვებლის ჩართვა\/გამორთვა",
+    "description": "Tooltip for the DOM inspector button in the logger page"
+  },
+  "loggerPopupPanelTip": {
+    "message": "ამომხტომი არეს ჩართვა\/გამორთვა",
+    "description": "Tooltip for the popup panel button in the logger page"
+  },
+  "loggerInfoTip": {
+    "message": "uBlock Origin-ის ვიკი: აღმრიცხავი",
+    "description": "Tooltip for the top-right info label in the logger page"
+  },
+  "loggerClearTip": {
+    "message": "აღმრიცხავის გასუფთავება",
+    "description": "Tooltip for the eraser in the logger page; used to blank the content of the logger"
+  },
+  "loggerPauseTip": {
+    "message": "აღმრიცხავის შეჩერება (მიღებული მონაცემების მოცილება)",
+    "description": "Tooltip for the pause button in the logger page"
+  },
+  "loggerUnpauseTip": {
+    "message": "აღრიცხვის გაგრძელება",
+    "description": "Tooltip for the play button in the logger page"
+  },
+  "loggerRowFiltererButtonTip": {
+    "message": "ჩანაწერების გამორჩევის ჩართვა\/გამორთვა",
+    "description": "Tooltip for the row filterer button in the logger page"
+  },
   "logFilterPrompt": {
     "message": "აღრიცხული ჩანაწერების გამორჩევა",
-    "description": "English: filter log entries"
+    "description": "Placeholder string for logger output filtering input field"
   },
-  "logMaxEntriesTip": {
-    "message": "აღრიცხული ჩანაწერების დაშვებული რაოდენობა",
-    "description": "Tooltip informaing that the input field is to set the maximum number of entries in the log"
+  "loggerRowFiltererBuiltinTip": {
+    "message": "ჩანაწერების გამორჩევის პარამეტრები",
+    "description": "Tooltip for the button to bring up logger output filtering options"
+  },
+  "loggerRowFiltererBuiltinNot": {
+    "message": "განურჩევლად",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinEventful": {
+    "message": "საგულისხმო",
+    "description": "A keyword in the built-in row filtering expression: all items corresponding to uBO doing something (blocked, allowed, redirected, etc.)"
+  },
+  "loggerRowFiltererBuiltinBlocked": {
+    "message": "შეზღუდული",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinAllowed": {
+    "message": "დაშვებული",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin1p": {
+    "message": "მონახულებულის",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin3p": {
+    "message": "მე-3 მხარის",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerEntryDetailsHeader": {
+    "message": "ვრცლად",
+    "description": "Small header to identify the 'Details' pane for a specific logger entry"
+  },
+  "loggerEntryDetailsFilter": {
+    "message": "ფილტრი",
+    "description": "Label to identify a filter field"
+  },
+  "loggerEntryDetailsFilterList": {
+    "message": "ფილტრების სია",
+    "description": "Label to identify a filter list field"
+  },
+  "loggerEntryDetailsRule": {
+    "message": "წესი",
+    "description": "Label to identify a rule field"
+  },
+  "loggerEntryDetailsContext": {
+    "message": "კონტექსტი",
+    "description": "Label to identify a context field (typically a hostname)"
+  },
+  "loggerEntryDetailsRootContext": {
+    "message": "ძირეული კონტექსტი",
+    "description": "Label to identify a root context field (typically a hostname)"
+  },
+  "loggerEntryDetailsPartyness": {
+    "message": "მხარე",
+    "description": "Label to identify a field providing partyness information"
+  },
+  "loggerEntryDetailsType": {
+    "message": "სახეობა",
+    "description": "Label to identify the type of an entry"
+  },
+  "loggerEntryDetailsURL": {
+    "message": "მისამართი",
+    "description": "Label to identify the URL of an entry"
+  },
+  "loggerURLFilteringHeader": {
+    "message": "ცვალებადი URL ფილტრები",
+    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerURLFilteringContextLabel": {
     "message": "კონტექსტი:",
@@ -538,10 +654,6 @@
   "loggerURLFilteringTypeLabel": {
     "message": "სახეობა:",
     "description": "Label for the type selector"
-  },
-  "loggerURLFilteringHeader": {
-    "message": "ცვალებადი URL ფილტრები",
-    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerStaticFilteringHeader": {
     "message": "მუდმივი ფილტრები",
@@ -584,28 +696,96 @@
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringFinderSentence1": {
-    "message": "მუდმივი ფილტრი {{filter}} ნაპოვნია სიაში:",
-    "description": "Below this sentence, the filter lists in which the filter was found"
+    "message": "მუდმივი ფილტრი <code>{{filter}}<\/code> ნაპოვნია სიაში:",
+    "description": "Below this sentence, the filter list(s) in which the filter was found"
+  },
+  "loggerStaticFilteringFinderSentence2": {
+    "message": "მუდმივი ფილტრი <code>{{filter}}<\/code> ვერ მოიძებნა ამჟამად გამოყენებულ ფილტრებს შორის",
+    "description": "Message to show when a filter cannot be found in any filter lists"
+  },
+  "loggerSettingDiscardPrompt": {
+    "message": "აღრიცხული ჩანაწერი, რომელიც არ აკმაყოფილებს ქვემოთ მოცემულ სამივე პირობას, ავტომატურად ამოიშლება:",
+    "description": "Logger setting: A sentence to describe the purpose of the settings below"
+  },
+  "loggerSettingPerEntryMaxAge": {
+    "message": "ბოლო {{input}} წუთის ჩანაწერების დატოვება",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxLoads": {
+    "message": "არაუმეტეს {{input}} გვერდის ჩატვირთვის დატოვება თითოეულ ჩანართზე",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxEntries": {
+    "message": "არაუმეტეს {{input}} ჩანაწერის დატოვება თითოეულ ჩანართში",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerEntryLineCount": {
+    "message": "თითოეული ჩანაწერისთვის {{input}} ხაზის გამოყენება, შვეულად ჩამოშლის რეჟიმში",
+    "description": "A logger setting"
+  },
+  "loggerSettingHideColumnsPrompt": {
+    "message": "სვეტების დამალვა:",
+    "description": "Logger settings: a sentence to describe the purpose of the checkboxes below"
+  },
+  "loggerSettingHideColumnTime": {
+    "message": "{{input}} დრო",
+    "description": "A label for the time column"
+  },
+  "loggerSettingHideColumnFilter": {
+    "message": "{{input}} ფილტრი\/წესი",
+    "description": "A label for the filter or rule column"
+  },
+  "loggerSettingHideColumnContext": {
+    "message": "{{input}} კონტექსტი",
+    "description": "A label for the context column"
+  },
+  "loggerSettingHideColumnPartyness": {
+    "message": "{{input}} მხარე",
+    "description": "A label for the partyness column"
+  },
+  "loggerExportFormatList": {
+    "message": "სია",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportFormatTable": {
+    "message": "ცხრილი",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportEncodePlain": {
+    "message": "მარტივი",
+    "description": "Label for radio-button to pick export text format"
+  },
+  "loggerExportEncodeMarkdown": {
+    "message": "გაფორმებული",
+    "description": "Label for radio-button to pick export text format"
   },
   "aboutChangelog": {
     "message": "ცვლილებათა ჟურნალი",
-    "description": "English: Change log"
+    "description": ""
   },
   "aboutWiki": {
     "message": "Wiki",
-    "description": "English: project' wiki on Github"
+    "description": "English: project' wiki on GitHub"
   },
   "aboutSupport": {
     "message": "მხარდაჭერა",
     "description": "A link for where to get support"
+  },
+  "aboutIssues": {
+    "message": "ხარვეზების აღმრიცხავი",
+    "description": "Text for a link to official issue tracker"
   },
   "aboutCode": {
     "message": "წყაროს კოდი (GPLv3)",
     "description": "English: Source code (GPLv3)"
   },
   "aboutContributors": {
-    "message": "დამხმარეები",
+    "message": "მოხალისეები",
     "description": "English: Contributors"
+  },
+  "aboutDependencies": {
+    "message": "ცალკეული დაქვემდებარებული პროექტები (GPLv3-თან თავსებადი):",
+    "description": "Shown in the About pane"
   },
   "aboutBackupDataButton": {
     "message": "ფაილში დამარქაფება",
@@ -736,7 +916,7 @@
     "description": "used as a prompt for the user to provide a custom device name"
   },
   "advancedSettingsWarning": {
-    "message": "გაფრთხილება! დამატებითი პარამეტრებს ცვლილების შედეგებზე, თავად ხართ პასუხისმგებელი.",
+    "message": "გაფრთხილება! დამატებითი პარამეტრების ცვლილების შედეგებზე, თავად იქნებით პასუხისმგებელი.",
     "description": "A warning to users at the top of 'Advanced settings' page"
   },
   "genericSubmit": {
@@ -758,6 +938,18 @@
   "contextMenuTemporarilyAllowLargeMediaElements": {
     "message": "დიდი მედია-ელემენტების დროებით დაშვება",
     "description": "A context menu entry, present when large media elements have been blocked on the current site"
+  },
+  "shortcutCapturePlaceholder": {
+    "message": "მალსახმობის მითითება",
+    "description": "Placeholder string for input field used to capture a keyboard shortcut"
+  },
+  "genericMergeViewScrollLock": {
+    "message": "ჩაკეტილი გადაადგილების ჩართვა\/გამორთვა",
+    "description": "Tooltip for the button used to lock scrolling between the views in the 'My rules' pane"
+  },
+  "genericCopyToClipboard": {
+    "message": "ასლის აღება",
+    "description": "Label for buttons used to copy something to the clipboard"
   },
   "dummy": {
     "message": "This entry must be the last one",

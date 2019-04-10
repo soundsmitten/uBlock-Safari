@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,8 +20,6 @@
 */
 
 
-/* global objectAssign */
-
 'use strict';
 
 /******************************************************************************/
@@ -35,33 +33,46 @@ if ( vAPI.webextFlavor === undefined ) {
 
 /******************************************************************************/
 
-var µBlock = (function() { // jshint ignore:line
+const µBlock = (function() { // jshint ignore:line
 
-    var oneSecond = 1000,
-        oneMinute = 60 * oneSecond;
-
-    var hiddenSettingsDefault = {
+    const hiddenSettingsDefault = {
         assetFetchTimeout: 30,
+        autoCommentFilterTemplate: '{{date}} {{origin}}',
         autoUpdateAssetFetchPeriod: 120,
         autoUpdatePeriod: 7,
+        cacheStorageAPI: 'unset',
+        cacheStorageCompression: true,
+        cacheControlForFirefox1376932: 'no-cache, no-store, must-revalidate',
+        consoleLogLevel: 'unset',
+        debugScriptlets: false,
+        disableWebAssembly: false,
         ignoreRedirectFilters: false,
         ignoreScriptInjectFilters: false,
-        streamScriptInjectFilters: false,
         manualUpdateAssetFetchPeriod: 500,
         popupFontSize: 'unset',
-        suspendTabsUntilReady: false,
+        requestJournalProcessPeriod: 1000,
+        selfieAfter: 11,
+        strictBlockingBypassDuration: 120,
+        suspendTabsUntilReady: 'unset',
         userResourcesLocation: 'unset'
     };
+
+    const whitelistDefault = [
+        'about-scheme',
+        'chrome-extension-scheme',
+        'chrome-scheme',
+        'moz-extension-scheme',
+        'opera-scheme',
+        'vivaldi-scheme',
+        'wyciwyg-scheme',   // Firefox's "What-You-Cache-Is-What-You-Get"
+    ];
 
     return {
         firstInstall: false,
 
-        onBeforeStartQueue: [],
-        onStartCompletedQueue: [],
-
         userSettings: {
             advancedUserEnabled: false,
-            alwaysDetachLogger: false,
+            alwaysDetachLogger: true,
             autoUpdate: true,
             cloudStorageEnabled: false,
             collapseBlocked: true,
@@ -83,46 +94,39 @@ var µBlock = (function() { // jshint ignore:line
 
         hiddenSettingsDefault: hiddenSettingsDefault,
         hiddenSettings: (function() {
-            var out = objectAssign({}, hiddenSettingsDefault),
-                json = vAPI.localStorage.getItem('immediateHiddenSettings');
-            if ( typeof json === 'string' ) {
-                try {
-                    var o = JSON.parse(json);
-                    if ( o instanceof Object ) {
-                        for ( var k in o ) {
-                            if ( out.hasOwnProperty(k) ) {
-                                out[k] = o[k];
-                            }
-                        }
+            const out = Object.assign({}, hiddenSettingsDefault);
+            const json = vAPI.localStorage.getItem('immediateHiddenSettings');
+            if ( typeof json !== 'string' ) { return out; }
+            try {
+                const o = JSON.parse(json);
+                if ( o instanceof Object ) {
+                    for ( const k in o ) {
+                        if ( out.hasOwnProperty(k) ) { out[k] = o[k]; }
+                    }
+                    self.log.verbosity = out.consoleLogLevel;
+                    if ( typeof out.suspendTabsUntilReady === 'boolean' ) {
+                        out.suspendTabsUntilReady = out.suspendTabsUntilReady
+                            ? 'yes'
+                            : 'unset';
                     }
                 }
-                catch(ex) {
-                }
             }
-            // Remove once 1.15.12+ is widespread.
-            vAPI.localStorage.removeItem('hiddenSettings');
+            catch(ex) {
+            }
             return out;
         })(),
 
         // Features detection.
         privacySettingsSupported: vAPI.browserSettings instanceof Object,
         cloudStorageSupported: vAPI.cloud instanceof Object,
-        canFilterResponseBody: vAPI.net.canFilterResponseBody === true,
+        canFilterResponseData: typeof browser.webRequest.filterResponseData === 'function',
+        canInjectScriptletsNow: vAPI.webextFlavor.soup.has('chromium'),
 
         // https://github.com/chrisaljoudi/uBlock/issues/180
         // Whitelist directives need to be loaded once the PSL is available
         netWhitelist: {},
         netWhitelistModifyTime: 0,
-        netWhitelistDefault: [
-            'about-scheme',
-            'chrome-extension-scheme',
-            'chrome-scheme',
-            'moz-extension-scheme',
-            'opera-scheme',
-            'vivaldi-scheme',
-            'wyciwyg-scheme',   // Firefox's "What-You-Cache-Is-What-You-Get"
-            ''
-        ].join('\n'),
+        netWhitelistDefault: whitelistDefault.join('\n'),
 
         localSettings: {
             blockedRequestCount: 0,
@@ -131,10 +135,10 @@ var µBlock = (function() { // jshint ignore:line
         localSettingsLastModified: 0,
         localSettingsLastSaved: 0,
 
-        // read-only
+        // Read-only
         systemSettings: {
-            compiledMagic: 1,
-            selfieMagic: 1
+            compiledMagic: 7,   // Increase when compiled format changes
+            selfieMagic: 8      // Increase when selfie format changes
         },
 
         restoreBackupSettings: {
@@ -143,6 +147,8 @@ var µBlock = (function() { // jshint ignore:line
             lastBackupFile: '',
             lastBackupTime: 0
         },
+
+        commandShortcuts: new Map(),
 
         // Allows to fully customize uBO's assets, typically set through admin
         // settings. The content of 'assets.json' will also tell which filter
@@ -154,8 +160,6 @@ var µBlock = (function() { // jshint ignore:line
 
         selectedFilterLists: [],
         availableFilterLists: {},
-
-        selfieAfter: 17 * oneMinute,
 
         pageStores: new Map(),
         pageStoresToken: 0,

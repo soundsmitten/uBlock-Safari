@@ -5,7 +5,7 @@
   },
   "extShortDesc": {
     "message": "Endelig en effektiv blokkeringsutvidelse. Lavt CPU- og minnebruk.",
-    "description": "this will be in the chrome web store: must be 132 characters or less"
+    "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "dashboardName": {
     "message": "uBlock₀ — Dashbord",
@@ -31,6 +31,10 @@
     "message": "Hviteliste",
     "description": "appears as tab name in dashboard"
   },
+  "shortcutsPageName": {
+    "message": "Snarveier",
+    "description": "appears as tab name in dashboard"
+  },
   "statsPageName": {
     "message": "uBlock₀ — Logg",
     "description": "Title for the logger window"
@@ -38,6 +42,10 @@
   "aboutPageName": {
     "message": "Om",
     "description": "appears as tab name in dashboard"
+  },
+  "assetViewerPageName": {
+    "message": "uBlock₀ — Ressursviser",
+    "description": "Title for the asset viewer page"
   },
   "advancedSettingsPageName": {
     "message": "Avanserte innstillinger",
@@ -80,11 +88,11 @@
     "description": "English: Click to open the dashboard"
   },
   "popupTipZapper": {
-    "message": "Gå til element-fjerningsmodus",
+    "message": "Gå til elementfjerningsmodus",
     "description": "Tooltip for the element-zapper icon in the popup panel"
   },
   "popupTipPicker": {
-    "message": "Gå til element-velgermodus",
+    "message": "Gå til elementvelgermodus",
     "description": "English: Enter element picker mode"
   },
   "popupTipLog": {
@@ -139,6 +147,14 @@
     "message": "Klikk for å ikke lenger blokkere eksterne skrifttyper på dette nettstedet",
     "description": "Tooltip for the no-remote-fonts per-site switch"
   },
+  "popupTipNoScripting1": {
+    "message": "Klikk for å slå av JavaScript på dette nettstedet",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
+  "popupTipNoScripting2": {
+    "message": "Klikk for å ikke lenger slå av JavaScript på dette nettstedet",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
   "popupTipGlobalRules": {
     "message": "Globale regler: Denne kolonnen er for regler som gjelder alle nettsteder.",
     "description": "Tooltip when hovering the top-most cell of the global-rules column."
@@ -168,7 +184,7 @@
     "description": ""
   },
   "popup3pPassiveRulePrompt": {
-    "message": "tredjeparts css\/bilder",
+    "message": "tredjeparts CSS\/bilder",
     "description": ""
   },
   "popupInlineScriptRulePrompt": {
@@ -284,12 +300,16 @@
     "description": ""
   },
   "settingsNoLargeMediaPrompt": {
-    "message": "Blokker mediaelementer større enn {{input:number}} kB",
+    "message": "Blokker mediaelementer større enn {{input}} KB",
     "description": ""
   },
   "settingsNoRemoteFontsPrompt": {
     "message": "Blokker eksterne skrifttyper",
     "description": ""
+  },
+  "settingsNoScriptingPrompt": {
+    "message": "Deaktiver JavaScript",
+    "description": "The default state for the per-site no-scripting switch"
   },
   "settingsNoCSPReportsPrompt": {
     "message": "Blokker CSP-rapporter",
@@ -400,7 +420,7 @@
     "description": "used as a tooltip for the clock icon beside a list"
   },
   "3pUpdating": {
-    "message": "Oppdaterer…",
+    "message": "Oppdaterer...",
     "description": "used as a tooltip for the spinner icon beside a list"
   },
   "3pNetworkError": {
@@ -516,20 +536,116 @@
     "description": "Appears in the logger's tab selector"
   },
   "logBehindTheScene": {
-    "message": "Bak kulissene",
+    "message": "Faneløs",
     "description": "Pretty name for behind-the-scene network requests"
   },
   "loggerCurrentTab": {
     "message": "Gjeldende fane",
     "description": "Appears in the logger's tab selector"
   },
-  "logFilterPrompt": {
-    "message": "filtrer loggoppføringer",
-    "description": "English: filter log entries"
+  "loggerReloadTip": {
+    "message": "Last faneinnholdet på nytt",
+    "description": "Tooltip for the reload button in the logger page"
   },
-  "logMaxEntriesTip": {
-    "message": "Maksimum antall loggoppføringer",
-    "description": "Tooltip informaing that the input field is to set the maximum number of entries in the log"
+  "loggerDomInspectorTip": {
+    "message": "Slå av\/på DOM-inspektør",
+    "description": "Tooltip for the DOM inspector button in the logger page"
+  },
+  "loggerPopupPanelTip": {
+    "message": "Slå av\/på oppsprettspanelet",
+    "description": "Tooltip for the popup panel button in the logger page"
+  },
+  "loggerInfoTip": {
+    "message": "uBlock Origin wiki: Loggen",
+    "description": "Tooltip for the top-right info label in the logger page"
+  },
+  "loggerClearTip": {
+    "message": "Tøm loggen",
+    "description": "Tooltip for the eraser in the logger page; used to blank the content of the logger"
+  },
+  "loggerPauseTip": {
+    "message": "Sett loggen i pausemodus (forkast alle innkommende data)",
+    "description": "Tooltip for the pause button in the logger page"
+  },
+  "loggerUnpauseTip": {
+    "message": "Gjenoppta logging",
+    "description": "Tooltip for the play button in the logger page"
+  },
+  "loggerRowFiltererButtonTip": {
+    "message": "Slå av\/på loggfiltrering",
+    "description": "Tooltip for the row filterer button in the logger page"
+  },
+  "logFilterPrompt": {
+    "message": "filtrer logginnhold",
+    "description": "Placeholder string for logger output filtering input field"
+  },
+  "loggerRowFiltererBuiltinTip": {
+    "message": "Alternativer for loggfiltrering",
+    "description": "Tooltip for the button to bring up logger output filtering options"
+  },
+  "loggerRowFiltererBuiltinNot": {
+    "message": "Ikke",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinEventful": {
+    "message": "hendelsesrik",
+    "description": "A keyword in the built-in row filtering expression: all items corresponding to uBO doing something (blocked, allowed, redirected, etc.)"
+  },
+  "loggerRowFiltererBuiltinBlocked": {
+    "message": "blokkert",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinAllowed": {
+    "message": "tillatt",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin1p": {
+    "message": "førstepart",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin3p": {
+    "message": "tredjepart",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerEntryDetailsHeader": {
+    "message": "Detaljer",
+    "description": "Small header to identify the 'Details' pane for a specific logger entry"
+  },
+  "loggerEntryDetailsFilter": {
+    "message": "Filter",
+    "description": "Label to identify a filter field"
+  },
+  "loggerEntryDetailsFilterList": {
+    "message": "Filterliste",
+    "description": "Label to identify a filter list field"
+  },
+  "loggerEntryDetailsRule": {
+    "message": "Regel",
+    "description": "Label to identify a rule field"
+  },
+  "loggerEntryDetailsContext": {
+    "message": "Kontekst",
+    "description": "Label to identify a context field (typically a hostname)"
+  },
+  "loggerEntryDetailsRootContext": {
+    "message": "Rotkontekst",
+    "description": "Label to identify a root context field (typically a hostname)"
+  },
+  "loggerEntryDetailsPartyness": {
+    "message": "Partsrelasjon",
+    "description": "Label to identify a field providing partyness information"
+  },
+  "loggerEntryDetailsType": {
+    "message": "Type",
+    "description": "Label to identify the type of an entry"
+  },
+  "loggerEntryDetailsURL": {
+    "message": "Nettadresse",
+    "description": "Label to identify the URL of an entry"
+  },
+  "loggerURLFilteringHeader": {
+    "message": "Nettadresseregel",
+    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerURLFilteringContextLabel": {
     "message": "Kontekst:",
@@ -539,12 +655,8 @@
     "message": "Type:",
     "description": "Label for the type selector"
   },
-  "loggerURLFilteringHeader": {
-    "message": "Dynamisk adressefiltrering",
-    "description": "Small header to identify the dynamic URL filtering section"
-  },
   "loggerStaticFilteringHeader": {
-    "message": "Statisk filtrering",
+    "message": "Statisk filter",
     "description": "Small header to identify the static filtering section"
   },
   "loggerStaticFilteringSentence": {
@@ -584,20 +696,84 @@
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringFinderSentence1": {
-    "message": "Statisk filter {{filter}} funnet i:",
-    "description": "Below this sentence, the filter lists in which the filter was found"
+    "message": "Statisk filter <code>{{filter}}<\/code> funnet i:",
+    "description": "Below this sentence, the filter list(s) in which the filter was found"
+  },
+  "loggerStaticFilteringFinderSentence2": {
+    "message": "Statisk filter <code>{{filter}}<\/code> ble ikke funnet i noen av filterlistene som er aktiverte nå",
+    "description": "Message to show when a filter cannot be found in any filter lists"
+  },
+  "loggerSettingDiscardPrompt": {
+    "message": "Loggoppføringer som ikke oppfyller alle tre betingelser nedenfor blir automatisk forkastet:",
+    "description": "Logger setting: A sentence to describe the purpose of the settings below"
+  },
+  "loggerSettingPerEntryMaxAge": {
+    "message": "Bevar oppføringer fra de siste {{input}} minuttene",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxLoads": {
+    "message": "Bevar maksimalt {{input}} sideinnlastinger per fane",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxEntries": {
+    "message": "Bevar maksimalt {{input}} oppføringer per fane",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerEntryLineCount": {
+    "message": "Bruk {{input}} linjer per oppføring i vertikalt utvidet modus",
+    "description": "A logger setting"
+  },
+  "loggerSettingHideColumnsPrompt": {
+    "message": "Skjul kolonner:",
+    "description": "Logger settings: a sentence to describe the purpose of the checkboxes below"
+  },
+  "loggerSettingHideColumnTime": {
+    "message": "{{input}} Tid",
+    "description": "A label for the time column"
+  },
+  "loggerSettingHideColumnFilter": {
+    "message": "{{input}} Filter\/regel",
+    "description": "A label for the filter or rule column"
+  },
+  "loggerSettingHideColumnContext": {
+    "message": "{{input}} Kontekst",
+    "description": "A label for the context column"
+  },
+  "loggerSettingHideColumnPartyness": {
+    "message": "{{input}} Partsrelasjon",
+    "description": "A label for the partyness column"
+  },
+  "loggerExportFormatList": {
+    "message": "Liste",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportFormatTable": {
+    "message": "Tabell",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportEncodePlain": {
+    "message": "Uformatert",
+    "description": "Label for radio-button to pick export text format"
+  },
+  "loggerExportEncodeMarkdown": {
+    "message": "Markdown",
+    "description": "Label for radio-button to pick export text format"
   },
   "aboutChangelog": {
     "message": "Endringslogg",
-    "description": "English: Change log"
+    "description": ""
   },
   "aboutWiki": {
     "message": "Wiki",
-    "description": "English: project' wiki on Github"
+    "description": "English: project' wiki on GitHub"
   },
   "aboutSupport": {
     "message": "Brukerstøtte",
     "description": "A link for where to get support"
+  },
+  "aboutIssues": {
+    "message": "Problemsporing",
+    "description": "Text for a link to official issue tracker"
   },
   "aboutCode": {
     "message": "Kildekode (GPLv3)",
@@ -606,6 +782,10 @@
   "aboutContributors": {
     "message": "Bidragsytere",
     "description": "English: Contributors"
+  },
+  "aboutDependencies": {
+    "message": "Eksterne avhengigheter (GPLv3-kompatible):",
+    "description": "Shown in the About pane"
   },
   "aboutBackupDataButton": {
     "message": "Sikkerhetskopier til fil",
@@ -758,6 +938,18 @@
   "contextMenuTemporarilyAllowLargeMediaElements": {
     "message": "Tillat store mediaelementer midlertidig",
     "description": "A context menu entry, present when large media elements have been blocked on the current site"
+  },
+  "shortcutCapturePlaceholder": {
+    "message": "Oppfør en snarvei",
+    "description": "Placeholder string for input field used to capture a keyboard shortcut"
+  },
+  "genericMergeViewScrollLock": {
+    "message": "Slå av\/på låst rulling",
+    "description": "Tooltip for the button used to lock scrolling between the views in the 'My rules' pane"
+  },
+  "genericCopyToClipboard": {
+    "message": "Kopier til utklippstavle",
+    "description": "Label for buttons used to copy something to the clipboard"
   },
   "dummy": {
     "message": "This entry must be the last one",
